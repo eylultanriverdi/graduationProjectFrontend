@@ -1,0 +1,2 @@
+export const CREATE_USER = "CREATE_USER"
+export const FETCH_PRODUCTS="FETCH_PRODUCTS"
