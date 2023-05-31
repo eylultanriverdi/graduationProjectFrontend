@@ -1,10 +1,9 @@
 const axios = require("axios").default;
 
-const apiBaseUrl = "http://localhost:3000";
 
 const getProduct = async () => {
     const resp = await axios.get(
-        `${apiBaseUrl}/products`
+        `http://localhost:3001/products`
     );
     return resp.status === 200 ? resp : false;
 }

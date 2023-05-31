@@ -21,7 +21,7 @@ const ProductDetail = () => {
 
 
     const fetchProctDetail = async () => {
-        const resp = await axios.get(`localhost:3000/products/${productId}`).catch(
+        const resp = await axios.get(`localhost:3001/products/${productId}`).catch(
             (err) => console.log(err)
         );
         dispatch(selectedProducts(resp.data));

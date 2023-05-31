@@ -1,18 +1,17 @@
-import { FETCH_PRODUCTS } from "./types";
+import { ActionTypes } from "../redux/contants/action-types";
 import { getProduct } from "../api/user";
 
-export const fetchProducts = (apiBaseUrl) => {
+export const fetchProducts = () => {
   return async (dispatch) => {
     try {
-      const res = await getProduct(apiBaseUrl);
+      const res = await getProduct();
       if (res && res.status === 200) {
         dispatch({
-          type: FETCH_PRODUCTS,
+          type: ActionTypes.SET_PRODUCTS,
           payload: res.data,
         });
       }
     } catch (error) {
-      // Hata durumunu yönetmek için gerekli adımları burada gerçekleştirin
     }
   };
 };

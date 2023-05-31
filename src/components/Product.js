@@ -6,17 +6,16 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { fetchProducts } from '../actions/productAction';
 
-const apiBaseUrl = "http://localhost:3000";
 
 const Product = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.allProducts);
 
   useEffect(() => {
-    dispatch(fetchProducts(apiBaseUrl));
+    dispatch(fetchProducts());
   }, [dispatch]);
 
-  const renderList = products.map((product) => {
+  const renderList =products && products.map((product) => {
     const { id, title, image, price, category } = product;
 
     return (

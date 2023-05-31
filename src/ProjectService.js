@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const PROJECT_API_BASE_URL = "http://localhost:3000";
+const PROJECT_API_BASE_URL = "http://localhost:3001";
 
 class ProjectService {
 
