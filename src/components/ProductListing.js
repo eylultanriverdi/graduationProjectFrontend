@@ -47,7 +47,7 @@ const ProductListing = (props) => {
 
 
   const renderList = allProducts && allProducts.map((product) => {
-    const { productId, productName, description, productImage, carbohydrateValue, glutenFree, glutenValue, ketogenicDiet, oilValue, proteinValue, saltFree } = product;
+    const { productId, productName, description, productImage, carbohydrateValue, glutenFree, glutenValue, ketogenicDiet, oilValue, proteinValue, saltFree ,calorieValue} = product;
   
     return (
       <Link to={`/product/${productId}`} style={{ color: "#9c27b0" }} key={productId}>
@@ -65,6 +65,7 @@ const ProductListing = (props) => {
               <Typography variant="h4" component="h2">{glutenFree}</Typography>
               <Typography variant="h4" component="h2">{ketogenicDiet}</Typography>
               <Typography variant="h4" component="h2">{saltFree}</Typography>
+              <Typography variant="h4" component="h2">{calorieValue}</Typography>
             </Grid>
           </Grid>
         </Paper>
