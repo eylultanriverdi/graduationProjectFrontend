@@ -12,15 +12,6 @@ const ProductListing = (props) => {
   const { allProducts } = props;
   const dispatch = useDispatch();
 
-  const decodeBase64Image = (base64Data) => {
-    const decodedImage = atob(base64Data.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''));
-    const uint8Array = new Uint8Array(decodedImage.length);
-    for (let i = 0; i < decodedImage.length; i++) {
-      uint8Array[i] = decodedImage.charCodeAt(i);
-    }
-    return URL.createObjectURL(new Blob([uint8Array], { type: base64Data.split(',')[0].split(':')[1] }));
-  };
-
   const fetchProducts = async () => {
     try {
       const resp = await axios.get("http://localhost:3001/products");
