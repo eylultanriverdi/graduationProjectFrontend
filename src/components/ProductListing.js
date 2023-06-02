@@ -8,6 +8,7 @@ import { setProducts } from '../redux/actions/productActions';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 const ProductListing = (props) => {
   const { allProducts } = props;
@@ -56,8 +57,8 @@ const ProductListing = (props) => {
     const { productId, productName, description, productImage, carbohydrateValue, glutenFree, glutenValue, ketogenicDiet, oilValue, proteinValue, saltFree, calorieValue } = product;
   
     return (
-      <Link to={`/product/${productId}`} style={{ color: '#9c27b0' }} key={productId}>
-        <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px' }}>
+      <Link to={`/product/${productId}`} style={{ textDecoration: 'none', color: '#9c27b0' }} key={productId}>
+        <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', padding: '20px', position: 'relative' }}>
           <Grid container spacing={2}>
             {/* Ürün görseli */}
             <Grid item xs={12} sm={4}>
@@ -65,38 +66,49 @@ const ProductListing = (props) => {
                 src={productImage}
                 alt={description}
                 align="center"
-                style={{ width: '300px', height: '350px', marginBottom: '50px', marginLeft: '10px' }}
+                style={{ width: '100%', height: 'auto' }}
               />
             </Grid>
             {/* Ürün bilgileri */}
-            <Grid item xs={12} sm={4} style={{ color: '#9c27b0' }}>
-              <Typography variant="h4" component="h2">
+            <Grid item xs={12} sm={8}>
+              <Typography variant="h4" component="h2" style={{ marginBottom: '10px' }}>
                 {productName}
               </Typography>
-              <Typography variant="h4" component="h2">
-                {proteinValue}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                {description}
               </Typography>
-              <Typography variant="h4" component="h2">
-                {carbohydrateValue}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Protein: {proteinValue}
               </Typography>
-              <Typography variant="h4" component="h2">
-                {oilValue}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Hidrat: {carbohydrateValue}
               </Typography>
-              <Typography variant="h4" component="h2">
-                {glutenValue}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Yağ: {oilValue}
               </Typography>
-              <Typography variant="h4" component="h2">
-                {glutenFree}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Gluten Değeri: {glutenValue}
               </Typography>
-              <Typography variant="h4" component="h2">
-                {ketogenicDiet}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Gluten Free: {glutenFree}
               </Typography>
-              <Typography variant="h4" component="h2">
-                {saltFree}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Ketogenic Diet: {ketogenicDiet}
               </Typography>
-              <Typography variant="h4" component="h2">
-                {calorieValue}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Salt Free: {saltFree}
               </Typography>
+              <Typography variant="body1" component="p">
+                Kalori: {calorieValue}
+              </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                size="small"
+                style={{ position: 'absolute', bottom: '10px', right: '10px' }}
+              >
+                Bugünün Listesine Ekle
+              </Button>
             </Grid>
           </Grid>
         </Paper>
