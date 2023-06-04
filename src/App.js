@@ -9,6 +9,7 @@ import ProductDetail from './components/ProductDetail';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
+import CalorieInfoPage from './components/CalorieInfoPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/product/:productId" element={<ProductDetail></ProductDetail>}></Route>
             <Route path="/registerPage" element={<RegisterPage />} />
             <Route path="/loginPage" element={<LoginPage />}></Route>
+            <Route path="/calorieInformation" element={<CalorieInfoPage />}></Route>
           </Routes></>
 
 

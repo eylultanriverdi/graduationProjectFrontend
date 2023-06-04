@@ -21,3 +21,13 @@ export const calorieInfoReducer = (state = initialState.calorieInfo, { type, pay
             return state
     }
 }
+
+
+export const calorieInfoListReducer = (state = initialState.calorieInfo, { type, payload }) => {
+    switch (type) {
+        case ActionTypes.CALORIE_INFO_LIST:
+            return { ...state, products: payload}
+        default:
+            return state
+    }
+}

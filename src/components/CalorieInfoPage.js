@@ -1,0 +1,262 @@
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createCalorieInfo, setCalorieInfoList, setProducts } from '../redux/actions/productActions';
+import axios from 'axios';
+import { CircularProgress, Grid, Paper, Typography, Button,TextField } from '@mui/material';
+
+const CalorieInfoPage = (props) => {
+  const { allProducts, calorieInfoList,createCalorieInfo } = props;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10); // Her sayfada kaç ürün gösterileceği
+
+  const fetchProducts = async () => {
+    try {
+      const resp = await axios.get(`http://localhost:3001/products?page=${currentPage}&limit=${productsPerPage}`);
+      if (resp && resp.status === 200) {
+        const { pagination, products } = resp.data;
+        const { totalPages } = pagination;
+
+        const decodedProducts = products.map((product) => {
+          const base64Image = `data:image/jpeg;base64,${product.productImage}`;
+          return {
+            ...product,
+            productImage: base64Image
+          };
+        });
+
+        props.setProducts(decodedProducts);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  const calculateTotalCalories = () => {
+    let totalCalories = 0;
+  
+    if (calorieInfoList && calorieInfoList.length > 0) {
+      const currentDate = new Date().toISOString().split('T')[0]; // Bugünün tarihini al
+  
+      // İlgili tarih bilgisine sahip ürünleri bul
+      const productsWithSameDate = calorieInfoList.filter((calorieInfo) => calorieInfo.createDate === currentDate);
+  
+      // Toplam kalori değerini hesapla
+      if (productsWithSameDate.length > 0) {
+        totalCalories = productsWithSameDate.reduce(
+          (total, calorieInfo) => total + parseInt(calorieInfo.totalCalorie),
+          0
+        );
+      }
+    }
+  
+    return totalCalories.toString();
+  };
+
+  const fetchCalorieInfoList = async () => {
+    try {
+      const resp = await axios.get(`http://localhost:3001/calorieInfo`);
+      if (resp && resp.status === 200) {
+        props.setCalorieInfoList(resp.data);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, [currentPage]);
+
+  useEffect(() => {
+    fetchCalorieInfoList();
+  }, []);
+
+  const handleAddToList = async (productId) => {
+    const currentDate = new Date().toISOString().slice(0, 10);
+  
+    try {
+      const selectedProduct = allProducts.find((product) => product.productId === productId);
+      console.log(selectedProduct, "selectedProduct")
+      if (selectedProduct) {
+        const {
+          productId,
+          productName,
+          description,
+          productImage,
+          proteinValue,
+          carbohydrateValue,
+          oilValue,
+          glutenValue,
+          ketogenicDiet,
+          glutenFree,
+          saltFree,
+          calorieValue
+        } = selectedProduct;
+  
+        const resp = await axios.post(`http://localhost:3001/addList`, {
+          calorieListId: "",
+          products: [
+            {
+              productId: productId,
+              productName: productName,
+              description:description ,
+              productImage: "",
+              proteinValue: proteinValue,
+              carbohydrateValue: carbohydrateValue,
+              oilValue: oilValue,
+              glutenValue: glutenValue,
+              ketogenicDiet: ketogenicDiet,
+              glutenFree: glutenFree,
+              saltFree: glutenFree,
+              calorieValue: calorieValue
+            }
+          ],
+          totalCalorie: calorieValue,
+          createDate: currentDate
+        });
+        createCalorieInfo(resp.data);
+  
+        // Yeni bir "calorieInfo" nesnesi eklendiğinde, güncel "calorieInfoList"i yeniden getir
+        fetchCalorieInfoList();
+      } else {
+        console.log('Product not found');
+      }
+    } catch (error) {
+      console.log('Error:', error.response);
+    }
+  };
+  
+  
+
+  const renderProductList = calorieInfoList && calorieInfoList.map((calorieInfo) => {
+    const { products } = calorieInfo;
+
+    return products && products.map((product) => {
+      const {
+        productId,
+        productName,
+        description,
+        productImage,
+        carbohydrateValue,
+        glutenFree,
+        glutenValue,
+        ketogenicDiet,
+        oilValue,
+        proteinValue,
+        saltFree,
+        calorieValue
+      } = product;
+
+      return (
+        <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', padding: '20px', position: 'relative' }}>
+          <Grid container spacing={2}>
+            {/* Ürün görseli */}
+            <Grid item xs={12} sm={4}>
+              <img
+                src={productImage}
+                alt={description}
+                align="center"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            </Grid>
+            {/* Ürün bilgileri */}
+            <Grid item xs={12} sm={8}>
+              <Typography variant="h4" component="h2" style={{ marginBottom: '10px' }}>
+                {productName}
+              </Typography>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                {description}
+              </Typography>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Protein: {proteinValue}
+              </Typography>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Hidrat: {carbohydrateValue}
+              </Typography>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Yağ: {oilValue}
+              </Typography>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Gluten Değeri: {glutenValue}
+              </Typography>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Gluten Free: {glutenFree}
+              </Typography>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Ketogenic Diet: {ketogenicDiet}
+              </Typography>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+                Salt Free: {saltFree}
+              </Typography>
+              <Typography variant="body1" component="p">
+                Kalori: {calorieValue}
+              </Typography>
+             <Button
+                variant="contained"
+                color="secondary"
+                size="small"
+                style={{ position: 'absolute', bottom: '10px', right: '10px' }}
+                onClick={() => handleAddToList(productId)}
+              >
+                Bugünün Listesine Ekle
+              </Button>
+            </Grid>
+          </Grid>
+        </Paper>
+      );
+    });
+  });
+
+  return (
+    <div>
+      <h1 style={{ color: '#9c27b0' }}>Calorie Info Page</h1>
+      <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
+        <Typography variant="h5" color='secondary' gutterBottom>
+          Add Food
+        </Typography>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <TextField
+            label="Food"
+            fullWidth
+            margin="normal"
+            required
+            color='secondary'
+          />
+          <Button variant="contained" color='secondary' >
+            Add Food
+          </Button>
+        </form>
+      </Paper>
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          <div style={{ position: 'relative', width: '200px', height: '200px' }}>
+            <CircularProgress
+              variant="determinate"
+              value={(parseInt(calculateTotalCalories()) / 3000) * 100}
+              size={200}
+              thickness={2}
+              color="secondary"
+            />
+            <Typography variant="h4" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+              {calculateTotalCalories()}
+            </Typography>
+          </div>
+          </div>
+          </div>
+      {renderProductList}
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  allProducts: state.allProducts.products,
+  calorieInfoList: state.calorieInfoList.products
+});
+
+const mapDispatchToProps = {
+  setProducts,
+  setCalorieInfoList,
+  createCalorieInfo
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CalorieInfoPage);

@@ -14,7 +14,7 @@ import { createCalorieInfo } from '../redux/actions/productActions';
 const ProductListing = (props) => {
   const { allProducts,createCalorieInfo } = props;
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10); // Her sayfada kaç ürün gösterileceği
+  const [productsPerPage] = useState(12); // Her sayfada kaç ürün gösterileceği
 
   const fetchProducts = async () => {
     try {
@@ -175,7 +175,7 @@ const ProductListing = (props) => {
       <h1 style={{ color: '#9c27b0' }}>Product Listing</h1>
       {renderList}
       <Stack spacing={2} style={{ marginTop: '20px' }}>
-        <Pagination count={8} color="secondary" page={currentPage} onChange={handlePageChange} />
+        <Pagination count={7} color="secondary" page={currentPage} onChange={handlePageChange} />
       </Stack>
     </div>
   );

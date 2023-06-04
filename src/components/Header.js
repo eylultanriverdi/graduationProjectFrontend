@@ -26,6 +26,7 @@ export default function ButtonAppBar() {
           </Typography>
           <Button color="inherit" href='loginPage'>Login</Button>
           <Button color="inherit" href='registerPage'>Register</Button>
+          <Button color="inherit" href='calorieInformation'>Calorie Information Page</Button>
         </Toolbar>
       </AppBar>
     </Box>
