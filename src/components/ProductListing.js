@@ -110,6 +110,7 @@ const ProductListing = (props) => {
     const { productId, productName, description, productImage, carbohydrateValue, glutenFree, glutenValue, ketogenicDiet, oilValue, proteinValue, saltFree, calorieValue } = product;
 
     return (
+      <Link to={`/product/${productId}`} style={{ textDecoration: 'none', color: '#9c27b0' }} key={productId}>
         <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', padding: '20px', position: 'relative' }}>
           <Grid container spacing={2}>
             {/* Ürün görseli */}
@@ -165,6 +166,7 @@ const ProductListing = (props) => {
             </Grid>
           </Grid>
         </Paper>
+        </Link>
     );
   });
 

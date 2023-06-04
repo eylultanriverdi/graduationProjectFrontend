@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createCalorieInfo, setCalorieInfoList, setProducts } from '../redux/actions/productActions';
 import axios from 'axios';
-import { CircularProgress, Grid, Paper, Typography, Button,TextField } from '@mui/material';
+import { CircularProgress, Grid, Paper, Typography, Button, TextField } from '@mui/material';
 
 const CalorieInfoPage = (props) => {
-  const { allProducts, calorieInfoList,createCalorieInfo } = props;
+  const { allProducts, calorieInfoList, createCalorieInfo } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Her sayfada kaç ürün gösterileceği
+  const [totalCalories, setTotalCalories] = useState(0);
 
   const fetchProducts = async () => {
     try {
@@ -32,24 +33,25 @@ const CalorieInfoPage = (props) => {
   };
 
   const calculateTotalCalories = () => {
-    let totalCalories = 0;
-  
+    let total = 0;
+    const currentDate = new Date().toISOString().split('T')[0]; // Bugünün tarihini al
+
     if (calorieInfoList && calorieInfoList.length > 0) {
-      const currentDate = new Date().toISOString().split('T')[0]; // Bugünün tarihini al
-  
       // İlgili tarih bilgisine sahip ürünleri bul
-      const productsWithSameDate = calorieInfoList.filter((calorieInfo) => calorieInfo.createDate === currentDate);
-  
-      // Toplam kalori değerini hesapla
+      const productsWithSameDate = calorieInfoList.filter((calorieInfo) => {
+        const entryDate = new Date(calorieInfo.createDate).toISOString().split('T')[0];
+        return entryDate === currentDate;
+      });
+
       if (productsWithSameDate.length > 0) {
-        totalCalories = productsWithSameDate.reduce(
-          (total, calorieInfo) => total + parseInt(calorieInfo.totalCalorie),
-          0
-        );
+        // Toplam kalori değerini hesapla
+        total = productsWithSameDate.reduce((sum, calorieInfo) => {
+          return sum + parseInt(calorieInfo.totalCalorie);
+        }, 0);
       }
     }
-  
-    return totalCalories.toString();
+
+    return total;
   };
 
   const fetchCalorieInfoList = async () => {
@@ -71,12 +73,16 @@ const CalorieInfoPage = (props) => {
     fetchCalorieInfoList();
   }, []);
 
+  useEffect(() => {
+    setTotalCalories(calculateTotalCalories());
+  }, [calorieInfoList]);
+
   const handleAddToList = async (productId) => {
     const currentDate = new Date().toISOString().slice(0, 10);
-  
+
     try {
       const selectedProduct = allProducts.find((product) => product.productId === productId);
-      console.log(selectedProduct, "selectedProduct")
+
       if (selectedProduct) {
         const {
           productId,
@@ -92,14 +98,14 @@ const CalorieInfoPage = (props) => {
           saltFree,
           calorieValue
         } = selectedProduct;
-  
+
         const resp = await axios.post(`http://localhost:3001/addList`, {
           calorieListId: "",
           products: [
             {
               productId: productId,
               productName: productName,
-              description:description ,
+              description: description,
               productImage: "",
               proteinValue: proteinValue,
               carbohydrateValue: carbohydrateValue,
@@ -114,10 +120,9 @@ const CalorieInfoPage = (props) => {
           totalCalorie: calorieValue,
           createDate: currentDate
         });
+
         createCalorieInfo(resp.data);
-  
-        // Yeni bir "calorieInfo" nesnesi eklendiğinde, güncel "calorieInfoList"i yeniden getir
-        fetchCalorieInfoList();
+        setTotalCalories(totalCalories + parseInt(calorieValue));
       } else {
         console.log('Product not found');
       }
@@ -125,8 +130,6 @@ const CalorieInfoPage = (props) => {
       console.log('Error:', error.response);
     }
   };
-  
-  
 
   const renderProductList = calorieInfoList && calorieInfoList.map((calorieInfo) => {
     const { products } = calorieInfo;
@@ -191,7 +194,7 @@ const CalorieInfoPage = (props) => {
               <Typography variant="body1" component="p">
                 Kalori: {calorieValue}
               </Typography>
-             <Button
+              <Button
                 variant="contained"
                 color="secondary"
                 size="small"
@@ -232,13 +235,13 @@ const CalorieInfoPage = (props) => {
           <div style={{ position: 'relative', width: '200px', height: '200px' }}>
             <CircularProgress
               variant="determinate"
-              value={(parseInt(calculateTotalCalories()) / 3000) * 100}
+              value={(totalCalories / 3000) * 100}
               size={200}
               thickness={2}
               color="secondary"
             />
             <Typography variant="h4" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-              {calculateTotalCalories()}
+              {totalCalories}
             </Typography>
           </div>
           </div>
