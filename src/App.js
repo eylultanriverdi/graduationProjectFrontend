@@ -16,13 +16,6 @@ function App() {
       <Header></Header>
       <Container>
         <>
-         {/*  <Typography
-            variant="h4"
-            component="h2"
-            marginTop={5}
-            marginBottom={3}
-          >Beslenme Başlıkları Gelicek
-          </Typography> */}
           <Routes>
             <Route path="/" element={<ProductListing></ProductListing>}></Route>
             <Route path="/product" element={<Product></Product>}></Route>

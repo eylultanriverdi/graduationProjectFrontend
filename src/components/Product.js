@@ -4,16 +4,12 @@ import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { fetchProducts } from '../actions/productAction';
 
 
 const Product = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.allProducts);
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
 
   const renderList =products && products.map((product) => {
     const { id, title, image, price, category } = product;

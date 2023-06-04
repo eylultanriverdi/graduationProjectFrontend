@@ -64,8 +64,6 @@ const ProductDetail = (props) => {
         }
       }, [allProducts])
 
-      console.log(product.productName,"product.productName", productId)
-
     return (
         <div>
             <h1>Product Detail</h1>

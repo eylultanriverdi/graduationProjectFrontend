@@ -9,9 +9,10 @@ import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { createCalorieInfo } from '../redux/actions/productActions';
 
 const ProductListing = (props) => {
-  const { allProducts } = props;
+  const { allProducts,createCalorieInfo } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Her sayfada kaç ürün gösterileceği
 
@@ -21,7 +22,7 @@ const ProductListing = (props) => {
       if (resp && resp.status === 200) {
         const { pagination, products } = resp.data;
         const { totalPages } = pagination;
-  
+
         const decodedProducts = products.map((product) => {
           const base64Image = `data:image/jpeg;base64,${product.productImage}`;
           return {
@@ -29,15 +30,68 @@ const ProductListing = (props) => {
             productImage: base64Image
           };
         });
-  
+
         props.setProducts(decodedProducts);
       }
     } catch (error) {
       console.log('Error:', error);
     }
   };
-  
 
+
+
+  const handleAddToList = async (productId) => {
+    const currentDate = new Date().toISOString().slice(0, 10);
+  
+    try {
+      const selectedProduct = allProducts.find((product) => product.productId === productId);
+      console.log(selectedProduct, "selectedProduct")
+      if (selectedProduct) {
+        const {
+          productId,
+          productName,
+          description,
+          productImage,
+          proteinValue,
+          carbohydrateValue,
+          oilValue,
+          glutenValue,
+          ketogenicDiet,
+          glutenFree,
+          saltFree,
+          calorieValue
+        } = selectedProduct;
+  
+        const resp = await axios.post(`http://localhost:3001/addList`, {
+          calorieListId: "",
+          products: [
+            {
+              productId: productId,
+              productName: productName,
+              description:description ,
+              productImage: "",
+              proteinValue: proteinValue,
+              carbohydrateValue: carbohydrateValue,
+              oilValue: oilValue,
+              glutenValue: glutenValue,
+              ketogenicDiet: ketogenicDiet,
+              glutenFree: glutenFree,
+              saltFree: glutenFree,
+              calorieValue: calorieValue
+            }
+          ],
+          totalCalorie: calorieValue,
+          createDate: currentDate
+        });
+        createCalorieInfo(resp.data);
+      } else {
+        console.log('Product not found');
+      }
+    } catch (error) {
+      console.log('Error:', error.response);
+    }
+  };
+  
 
   useEffect(() => {
     fetchProducts();
@@ -46,18 +100,16 @@ const ProductListing = (props) => {
   // Şu anki sayfadaki ürünleri al
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = allProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   // Sayfa değişikliğini işle
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
   };
 
-  const renderList = allProducts.map((product) => {
+  const renderList = allProducts && allProducts.map((product) => {
     const { productId, productName, description, productImage, carbohydrateValue, glutenFree, glutenValue, ketogenicDiet, oilValue, proteinValue, saltFree, calorieValue } = product;
-  
+
     return (
-      <Link to={`/product/${productId}`} style={{ textDecoration: 'none', color: '#9c27b0' }} key={productId}>
         <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', padding: '20px', position: 'relative' }}>
           <Grid container spacing={2}>
             {/* Ürün görseli */}
@@ -106,19 +158,17 @@ const ProductListing = (props) => {
                 color="secondary"
                 size="small"
                 style={{ position: 'absolute', bottom: '10px', right: '10px' }}
+                onClick={() => handleAddToList(productId)}
               >
                 Bugünün Listesine Ekle
               </Button>
             </Grid>
           </Grid>
         </Paper>
-      </Link>
     );
   });
-  
 
-  // Toplam sayfa sayısını hesapla
-  const pageNumbers = Math.ceil(allProducts.length / productsPerPage);
+
 
   return (
     <div>
@@ -136,7 +186,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  setProducts
+  setProducts,
+  createCalorieInfo
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductListing);

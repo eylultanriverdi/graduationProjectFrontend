@@ -7,17 +7,9 @@ export const setProducts = (products) => {
     }
 }
 
-export const selectedProducts = (product) => {
+export const createCalorieInfo = (calorieInfo) => {
     return {
-        type: ActionTypes.SELECTED_PRODUCT,
-        payload: product,
-    }
-}
-
-
-
-export const removeSelectedProductReducer = () => {
-    return {
-        type: ActionTypes.REMOVE_SELECTED_PRODUCT,
+        type: ActionTypes.CREATE_CALORIE_INFO,
+        payload: calorieInfo,
     }
 }

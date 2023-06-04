@@ -1,9 +1,10 @@
 import { ActionTypes } from "../contants/action-types";
 const initialState = {
     products: [],
+    calorieInfo: []
 }
 
-export const productReducer = (state = initialState, { type, payload }) => {
+export const productReducer = (state = initialState.products, { type, payload }) => {
     switch (type) {
         case ActionTypes.SET_PRODUCTS:
             return { ...state, products: payload}
@@ -12,15 +13,11 @@ export const productReducer = (state = initialState, { type, payload }) => {
     }
 }
 
-export const selectedProductReducer = (state = {}, { type, payload }) => {
+export const calorieInfoReducer = (state = initialState.calorieInfo, { type, payload }) => {
     switch (type) {
-        case ActionTypes.SELECTED_PRODUCT:
-            return { ...state, ...payload }
-        case ActionTypes.REMOVE_SELECTED_PRODUCT:
-            return {}
+        case ActionTypes.CREATE_CALORIE_INFO:
+            return { ...state, calorieInfo: payload}
         default:
             return state
     }
 }
-
-
