@@ -153,15 +153,6 @@ const CalorieInfoPage = (props) => {
       return (
         <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', padding: '20px', position: 'relative' }}>
           <Grid container spacing={2}>
-            {/* Ürün görseli */}
-            <Grid item xs={12} sm={4}>
-              <img
-                src={productImage}
-                alt={description}
-                align="center"
-                style={{ width: '100%', height: 'auto' }}
-              />
-            </Grid>
             {/* Ürün bilgileri */}
             <Grid item xs={12} sm={8}>
               <Typography variant="h4" component="h2" style={{ marginBottom: '10px' }}>

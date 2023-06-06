@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
-import { productReducer , calorieInfoReducer, calorieInfoListReducer} from "./productReducer";
+import { productReducer , calorieInfoReducer, calorieInfoListReducer, categoryListReducer} from "./productReducer";
 
 
 const reducers = combineReducers({
     allProducts: productReducer,
     calorieInfo: calorieInfoReducer,
-    calorieInfoList: calorieInfoListReducer
+    calorieInfoList: calorieInfoListReducer,
+    categoryList: categoryListReducer
 })
 
 export default reducers;

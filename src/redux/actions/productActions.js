@@ -20,3 +20,10 @@ export const setCalorieInfoList = (calorieInfo) => {
         payload: calorieInfo,
     }
 }
+
+export const setCategoryList = (categoryList) => {
+    return {
+        type: ActionTypes.CATEGORY_LIST,
+        payload: categoryList,
+    }
+}
