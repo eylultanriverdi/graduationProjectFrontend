@@ -12,6 +12,7 @@ import NavigationBar from './components/NavigationBar';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import CategoryList from './components/CategoryList';
+import HomePage from './components/HomePage';
 
 function App() {
   const isLoginPage = window.location.pathname === '/loginPage'; // Aktif sayfanın "/loginPage" olup olmadığını kontrol eder
@@ -29,6 +30,7 @@ function App() {
           <Route path="/category/:categoryId" element={<CategoryList />} />
           <Route path="/loginPage" element={<LoginPage />} />
           <Route path="/registerPage" element={<RegisterPage />} />
+          <Route path="/homePage" element={<HomePage />} />
         </Routes>
       </Container>
     </BrowserRouter>

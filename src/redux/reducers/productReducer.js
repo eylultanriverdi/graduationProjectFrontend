@@ -2,7 +2,10 @@ import { ActionTypes } from "../contants/action-types";
 const initialState = {
     products: [],
     calorieInfo: [],
-    categoryList: []
+    categoryList: [],
+    userRegister:[],
+    userSignIn: [],
+    userInfoToken :[]
 }
 
 export const productReducer = (state = initialState.products, { type, payload }) => {
@@ -41,3 +44,31 @@ export const categoryListReducer = (state = initialState.categoryList, { type, p
         return state
     }
   }
+
+  export const userRegisterReducer = (state = initialState.userRegister, { type, payload }) => {
+    switch (type) {
+        case ActionTypes.USER_REGISTER:
+            return { ...state, userRegister: payload}
+        default:
+            return state
+    }
+}
+
+export const userSignReducer = (state = initialState.userSignIn, { type, payload }) => {
+    switch (type) {
+        case ActionTypes.USER_SINGIN:
+            return { ...state, userSignIn: payload}
+        default:
+            return state
+    }
+}
+
+export const userInfoReducer = (state = initialState.userInfoToken, { type, payload }) => {
+    switch (type) {
+      case ActionTypes.USER_INFO:
+        return { ...state, userInfoToken: payload }
+      default:
+        return state
+    }
+  }
+  

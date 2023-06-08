@@ -27,3 +27,26 @@ export const setCategoryList = (categoryList) => {
         payload: categoryList,
     }
 }
+
+
+export const createUser = (userRegister) => {
+    return {
+        type: ActionTypes.USER_REGISTER,
+        payload: userRegister,
+    }
+}
+
+export const createSignIn = (userSignIn) => {
+    return {
+        type: ActionTypes.USER_SINGIN,
+        payload: userSignIn,
+    }
+}
+
+export const setUserInfo = (userTokenInfo) => {
+    return {
+      type: ActionTypes.USER_INFO,
+      payload: userTokenInfo,
+    }
+  }
+  
