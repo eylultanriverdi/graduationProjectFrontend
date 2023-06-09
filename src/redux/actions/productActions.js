@@ -38,15 +38,15 @@ export const createUser = (userRegister) => {
 
 export const createSignIn = (userSignIn) => {
     return {
-        type: ActionTypes.USER_SINGIN,
+        type: ActionTypes.USER_SIGNIN,
         payload: userSignIn,
     }
 }
 
-export const setUserInfo = (userTokenInfo) => {
+export const setUserInfo = (userID) => {
     return {
       type: ActionTypes.USER_INFO,
-      payload: userTokenInfo,
+      payload: userID,
     }
   }
   

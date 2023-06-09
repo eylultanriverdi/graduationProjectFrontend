@@ -23,12 +23,19 @@ const LoginPage = (props) => {
 
   const createUserSignIn = async () => {
     try {
-      var resp = await axios.post('http://localhost:3001/signin', {
+      const resp = await axios.post('http://localhost:3001/signin', {
         email: email,
         password: password,
       });
 
-      createSignIn(resp.data); // Dönen veriyi setUserInfo fonksiyonuyla Redux durumuna aktar
+      const result = resp.data;
+      console.log("result", result);
+      localStorage.setItem('login', JSON.stringify({
+        login: true,
+        token: result.token
+      }));
+
+      createSignIn(result); // Dönen veriyi setUserInfo fonksiyonuyla Redux durumuna aktar
       navigate('/homePage'); // Yönlendirme yapılacak sayfaya göre uygun URL'yi belirtin
     } catch (error) {
       console.log('Error:', error);

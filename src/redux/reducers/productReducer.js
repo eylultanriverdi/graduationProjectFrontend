@@ -56,19 +56,18 @@ export const categoryListReducer = (state = initialState.categoryList, { type, p
 
 export const userSignReducer = (state = initialState.userSignIn, { type, payload }) => {
     switch (type) {
-        case ActionTypes.USER_SINGIN:
+        case ActionTypes.USER_SIGNIN:
             return { ...state, userSignIn: payload}
         default:
             return state
     }
 }
-
-export const userInfoReducer = (state = initialState.userInfoToken, { type, payload }) => {
-    switch (type) {
+export const userInfoReducer = (state = initialState.userInfoToken, action) => {
+    switch (action.type) {
       case ActionTypes.USER_INFO:
-        return { ...state, userInfoToken: payload }
+        return action.payload; // Sadece payload'ı döndür
       default:
-        return state
+        return state;
     }
   }
   
