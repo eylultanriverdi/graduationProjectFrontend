@@ -5,7 +5,10 @@ const initialState = {
     categoryList: [],
     userRegister:[],
     userSignIn: [],
-    userInfoToken :[]
+    userInfoToken :[],
+    nutritionistRegister: [],
+    nutritionistSignIn: [],
+    nutritionistInfoToken: []
 }
 
 export const productReducer = (state = initialState.products, { type, payload }) => {
@@ -54,6 +57,15 @@ export const categoryListReducer = (state = initialState.categoryList, { type, p
     }
 }
 
+export const nutritionistRegisterReducer = (state = initialState.nutritionistRegister, { type, payload }) => {
+    switch (type) {
+        case ActionTypes.NUTRITIONIST_REGISTER:
+            return { ...state, nutritionistRegister: payload}
+        default:
+            return state
+    }
+}
+
 export const userSignReducer = (state = initialState.userSignIn, { type, payload }) => {
     switch (type) {
         case ActionTypes.USER_SIGNIN:
@@ -62,10 +74,29 @@ export const userSignReducer = (state = initialState.userSignIn, { type, payload
             return state
     }
 }
+
+export const nutritionistSignReducer = (state = initialState.nutritionistSignIn, { type, payload }) => {
+    switch (type) {
+        case ActionTypes.NUTRITIONIST_SIGNIN:
+            return { ...state, nutritionistSignIn: payload}
+        default:
+            return state
+    }
+}
+
 export const userInfoReducer = (state = initialState.userInfoToken, action) => {
     switch (action.type) {
       case ActionTypes.USER_INFO:
         return action.payload; // Sadece payload'ı döndür
+      default:
+        return state;
+    }
+  }
+
+  export const nutritionistInfoReducer = (state = initialState.nutritionistInfoToken, action) => {
+    switch (action.type) {
+      case ActionTypes.NUTRITIONIST_INFO:
+        return action.payload;
       default:
         return state;
     }

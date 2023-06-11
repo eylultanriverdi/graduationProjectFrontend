@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { setUserInfo } from '../redux/actions/productActions';
+import { setUserInfo } from '../../redux/actions/productActions';
 import jwt from 'jsonwebtoken';
 
 const base64UrlEncode = (value) => {
@@ -10,7 +10,7 @@ const base64UrlEncode = (value) => {
 };
 
 const HomePage = (props) => {
-  const { setUserInfo, userSignIn } = props;
+  const { setUserInfo } = props;
   const [login, setLogin] = useState(false);
   const [store, setStore] = useState(null);
 
@@ -27,9 +27,10 @@ const HomePage = (props) => {
 
       console.log(decodedToken.userID,"decode")
 
-      const header = base64UrlEncode(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-      const payload = base64UrlEncode(JSON.stringify({userID }));
+      const header = base64UrlEncode(JSON.stringify({ alg: 'HS256' }));
+      const payload = base64UrlEncode(JSON.stringify({userID}));
 
+      console.log(payload,"payload")
 
       const crypto = require('crypto');
       const signature = crypto
@@ -66,8 +67,6 @@ const HomePage = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  userSignIn: state.userSignIn.userSignIn.token,
-  userInfoToken: state.userInfoToken.userInfoToken,
 });
 
 const mapDispatchToProps = {

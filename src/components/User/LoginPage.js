@@ -1,50 +1,46 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
-import { useNavigate } from 'react-router-dom';
 import { Avatar, Button, Paper, TextField, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom';
-import { createUser } from '../redux/actions/productActions';
+import { Link, useNavigate } from 'react-router-dom';
+import { createSignIn, setUserInfo } from '../../redux/actions/productActions';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 
-const RegisterPage = (props) => {
-  const { createUser, history } = props;
+const LoginPage = (props) => {
+  const { createSignIn, setUserInfo } = props;
   const navigate = useNavigate();
   const paperStyle = { padding: 20, height: '70vh', width: 320, margin: '120px auto' };
   const avatarStyle = { backgroundColor: '#32e232' };
   const buttonStyle = { margin: '8px 0' };
   const textFieldStyle = { marginBottom: '15px' };
-
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
-  const [tel, setTel] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const createUserRegister = async () => {
+  const createUserSignIn = async () => {
     try {
-      const resp = await axios.post('http://localhost:3001/register', {
-        uid: '',
-        name: name,
-        surname: surname,
+      const resp = await axios.post('http://localhost:3001/signin', {
         email: email,
-        tel: tel,
         password: password,
       });
 
-      createUser(resp.data);
+      const result = resp.data;
+      console.log("result", result);
+      localStorage.setItem('login', JSON.stringify({
+        login: true,
+        token: result.token
+      }));
 
-      // Başarılı kayıt olduğunda login sayfasına yönlendirme
-      navigate('/loginPage');
-    }catch (error) {
-    console.log('Error:', error);
-    setError('An error occurred during registration.');
-  }
+      createSignIn(result); // Dönen veriyi setUserInfo fonksiyonuyla Redux durumuna aktar
+      navigate('/homePage'); // Yönlendirme yapılacak sayfaya göre uygun URL'yi belirtin
+    } catch (error) {
+      console.log('Error:', error);
+      setError('Your e-mail address is not registered in our system. Please complete your registration.');
+    }
   };
 
   return (
@@ -54,28 +50,8 @@ const RegisterPage = (props) => {
           <Avatar style={avatarStyle}>
             <LockOutlinedIcon />
           </Avatar>
-          <h2>Register</h2>
+          <h2>Sign in</h2>
         </Grid>
-        <TextField
-          label="Name"
-          placeholder="Enter name"
-          fullWidth
-          required
-          style={textFieldStyle}
-          color="secondary"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <TextField
-          label="Surname"
-          placeholder="Enter surname"
-          fullWidth
-          required
-          style={textFieldStyle}
-          color="secondary"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
-        />
         <TextField
           label="Email"
           placeholder="Enter email"
@@ -85,16 +61,6 @@ const RegisterPage = (props) => {
           color="secondary"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          label="Phone number"
-          placeholder="Enter phone number"
-          fullWidth
-          required
-          style={textFieldStyle}
-          color="secondary"
-          value={tel}
-          onChange={(e) => setTel(e.target.value)}
         />
         <TextField
           label="Password"
@@ -107,26 +73,21 @@ const RegisterPage = (props) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <FormControlLabel control={<Checkbox defaultChecked color="secondary" />} label="Remember me" />
-        {error && (
-          <Alert severity="error" onClose={() => setError('')}>
-            {error}
-          </Alert>
-        )}
+        {error && <Alert severity="error" onClose={() => setError('')}>{error}</Alert>}
         <Button
           type="submit"
           color="secondary"
           variant="contained"
           fullWidth
           style={buttonStyle}
-          onClick={createUserRegister}
+          onClick={createUserSignIn}
         >
           SIGN IN
         </Button>
         <Typography>
           Do you have an account ?
-          <Link to="/loginPage" color="secondary">
-            Sign IN
+          <Link to="/registerPageUser" color="secondary">
+            Sign Up
           </Link>
         </Typography>
       </Paper>
@@ -137,7 +98,8 @@ const RegisterPage = (props) => {
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
-  createUser,
+  createSignIn,
+  setUserInfo,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -36,6 +36,13 @@ export const createUser = (userRegister) => {
     }
 }
 
+export const createNutritionist = (nutritionistRegister) => {
+    return {
+        type: ActionTypes.NUTRITIONIST_REGISTER,
+        payload: nutritionistRegister,
+    }
+}
+
 export const createSignIn = (userSignIn) => {
     return {
         type: ActionTypes.USER_SIGNIN,
@@ -43,10 +50,24 @@ export const createSignIn = (userSignIn) => {
     }
 }
 
+export const createSignInNutritionist = (nutritionistSignIn) => {
+    return {
+        type: ActionTypes.NUTRITIONIST_SIGNIN,
+        payload: nutritionistSignIn,
+    }
+}
+
 export const setUserInfo = (userID) => {
     return {
       type: ActionTypes.USER_INFO,
       payload: userID,
+    }
+  }
+
+  export const setNutritionistInfo = (nutritionistID) => {
+    return {
+      type: ActionTypes.NUTRITIONIST_INFO,
+      payload: nutritionistID,
     }
   }
   

@@ -6,12 +6,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Link, useNavigate } from 'react-router-dom';
-import { createSignIn, setUserInfo } from '../redux/actions/productActions';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
+import { createSignInNutritionist } from '../../redux/actions/productActions';
 
-const LoginPage = (props) => {
-  const { createSignIn, setUserInfo } = props;
+const LoginPageNutritionist = (props) => {
+  const { createSignInNutritionist } = props;
   const navigate = useNavigate();
   const paperStyle = { padding: 20, height: '70vh', width: 320, margin: '120px auto' };
   const avatarStyle = { backgroundColor: '#32e232' };
@@ -21,9 +21,9 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const createUserSignIn = async () => {
+  const createNutritionistSignIn = async () => {
     try {
-      const resp = await axios.post('http://localhost:3001/signin', {
+      const resp = await axios.post('http://localhost:3001/signinNutritionist', {
         email: email,
         password: password,
       });
@@ -35,8 +35,8 @@ const LoginPage = (props) => {
         token: result.token
       }));
 
-      createSignIn(result); // Dönen veriyi setUserInfo fonksiyonuyla Redux durumuna aktar
-      navigate('/homePage'); // Yönlendirme yapılacak sayfaya göre uygun URL'yi belirtin
+      createSignInNutritionist(result);
+      navigate('/homePageNutritionist'); 
     } catch (error) {
       console.log('Error:', error);
       setError('Your e-mail address is not registered in our system. Please complete your registration.');
@@ -73,7 +73,6 @@ const LoginPage = (props) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <FormControlLabel control={<Checkbox defaultChecked color="secondary" />} label="Remember me" />
         {error && <Alert severity="error" onClose={() => setError('')}>{error}</Alert>}
         <Button
           type="submit"
@@ -81,18 +80,13 @@ const LoginPage = (props) => {
           variant="contained"
           fullWidth
           style={buttonStyle}
-          onClick={createUserSignIn}
+          onClick={createNutritionistSignIn}
         >
           SIGN IN
         </Button>
         <Typography>
-          <Link to="/" color="secondary">
-            Forgot Password ?
-          </Link>
-        </Typography>
-        <Typography>
           Do you have an account ?
-          <Link to="/registerPage" color="secondary">
+          <Link to="/registerPageNutritionist" color="secondary">
             Sign Up
           </Link>
         </Typography>
@@ -104,8 +98,7 @@ const LoginPage = (props) => {
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
-  createSignIn,
-  setUserInfo,
+    createSignInNutritionist,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPageNutritionist);
