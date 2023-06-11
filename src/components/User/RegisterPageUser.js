@@ -12,11 +12,12 @@ import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import LoginPage from './LoginPage';
 
 const RegisterPage = (props) => {
-  const { createUser, history } = props;
+  const { createUser, userRegister } = props;
   const navigate = useNavigate();
-  const paperStyle = { padding: 20, height: '70vh', width: 600, margin: '120px auto' };
+  const paperStyle = { padding: 20, margin: '120px auto' };
   const avatarStyle = { backgroundColor: '#32e232' };
   const buttonStyle = { margin: '8px 0' };
   const textFieldStyle = { marginBottom: '15px' };
@@ -86,10 +87,14 @@ const RegisterPage = (props) => {
     }
   };
 
-
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleSignInClick = () => {
+    navigate('/loginPage', { state: { userRegister } });
+  };
+
 
   return (
     <Grid container justifyContent="center">
@@ -259,7 +264,6 @@ const RegisterPage = (props) => {
             {error}
           </Alert>
         )}
-
         {registrationSuccess && (
           <div>
             <Typography variant="body1" align="center">
@@ -270,17 +274,21 @@ const RegisterPage = (props) => {
               color="secondary"
               fullWidth
               style={buttonStyle}
-              onClick={() => navigate('/loginPage')}
+              onClick={handleSignInClick}
             >
               Sign In
             </Button>
           </div>
         )}
-
       </Paper>
     </Grid>
   );
 };
+
+
+const mapStateToProps = (state) => ({
+  userRegister: state.userRegister.userRegister
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -288,4 +296,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(RegisterPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

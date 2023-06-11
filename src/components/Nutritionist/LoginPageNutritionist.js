@@ -11,7 +11,7 @@ import Alert from '@mui/material/Alert';
 import { createSignInNutritionist } from '../../redux/actions/productActions';
 
 const LoginPageNutritionist = (props) => {
-  const { createSignInNutritionist } = props;
+  const { createSignInNutritionist,nutritionistRegister } = props;
   const navigate = useNavigate();
   const paperStyle = { padding: 20, height: '70vh', width: 320, margin: '120px auto' };
   const avatarStyle = { backgroundColor: '#32e232' };
@@ -36,12 +36,14 @@ const LoginPageNutritionist = (props) => {
       }));
 
       createSignInNutritionist(result);
-      navigate('/homePageNutritionist'); 
+      navigate('/homePageNutritionist', { state: { nutritionistRegister } }); 
     } catch (error) {
       console.log('Error:', error);
       setError('Your e-mail address is not registered in our system. Please complete your registration.');
     }
   };
+
+  console.log(nutritionistRegister,"nutritionistRegisternutritionistRegister")
 
   return (
     <Grid>
@@ -95,7 +97,9 @@ const LoginPageNutritionist = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  nutritionistRegister:state.nutritionistRegister.nutritionistRegister
+});
 
 const mapDispatchToProps = {
     createSignInNutritionist,

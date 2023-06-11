@@ -71,6 +71,7 @@ const CategoryList = (props) => {
         {category.categoryImage && (
           <img  src={`${category.categoryImage}?width=500&quality=50`} alt="Category" onLoad={handleImageLoad} style={{ width: '100%', display: isImageLoaded ? 'block' : 'none' }} />
         )}
+        <Typography variant="h6" component="p" style={{ marginTop: '20px', marginBottom: '20px' ,color: 'secondary'}}>List Owner: {category.dietitianName}</Typography>
         <Typography variant="h6" component="p" style={{ marginTop: '20px', marginBottom: '20px' }}>{category.description}</Typography>
         <Typography variant="h5" component="h3" color="secondary" style={{ marginBottom: '20px', fontWeight: 'bold' }}>Planlar</Typography>
         {category.dailyDietPlan && category.dailyDietPlan.map((plan, index) => (

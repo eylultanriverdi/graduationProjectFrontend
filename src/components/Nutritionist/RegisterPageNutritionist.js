@@ -14,9 +14,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const RegisterPageNutritionist = (props) => {
-  const { createNutritionist, history } = props;
+  const { createNutritionist, nutritionistRegister } = props;
   const navigate = useNavigate();
-  const paperStyle = { padding: 20, height: '70vh', width: 600, margin: '120px auto' };
+  const paperStyle = { padding: 20, margin: '120px auto' };
   const avatarStyle = { backgroundColor: '#32e232' };
   const buttonStyle = { margin: '8px 0' };
   const textFieldStyle = { marginBottom: '15px' };
@@ -83,6 +83,10 @@ const RegisterPageNutritionist = (props) => {
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSignInClick = () => {
+    navigate('/loginPageNutritionist', { state: { nutritionistRegister } });
   };
 
   return (
@@ -227,7 +231,6 @@ const RegisterPageNutritionist = (props) => {
         >
           Register
         </Button>
-
         {error && (
           <Alert severity="error" style={textFieldStyle}>
             {error}
@@ -244,7 +247,7 @@ const RegisterPageNutritionist = (props) => {
               color="secondary"
               fullWidth
               style={buttonStyle}
-              onClick={() => navigate('/loginPageNutritionist')}
+              onClick={handleSignInClick}
             >
               Sign In
             </Button>
@@ -256,10 +259,14 @@ const RegisterPageNutritionist = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  nutritionistRegister: state.nutritionistRegister.nutritionistRegister
+});
+
 const mapDispatchToProps = (dispatch) => {
   return {
     createNutritionist: (nutritionist) => dispatch(createNutritionist(nutritionist)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(RegisterPageNutritionist);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPageNutritionist);

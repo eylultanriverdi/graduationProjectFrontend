@@ -11,7 +11,7 @@ import axios from 'axios';
 import Alert from '@mui/material/Alert';
 
 const LoginPage = (props) => {
-  const { createSignIn, setUserInfo } = props;
+  const { createSignIn, userRegister } = props;
   const navigate = useNavigate();
   const paperStyle = { padding: 20, height: '70vh', width: 320, margin: '120px auto' };
   const avatarStyle = { backgroundColor: '#32e232' };
@@ -27,21 +27,20 @@ const LoginPage = (props) => {
         email: email,
         password: password,
       });
-
+  
       const result = resp.data;
-      console.log("result", result);
-      localStorage.setItem('login', JSON.stringify({
-        login: true,
-        token: result.token
-      }));
-
+  
       createSignIn(result); // Dönen veriyi setUserInfo fonksiyonuyla Redux durumuna aktar
-      navigate('/homePage'); // Yönlendirme yapılacak sayfaya göre uygun URL'yi belirtin
+      navigate('/homePage', { state: { userRegister } }); // userRegister değerini navigate işlevine ekleyin
     } catch (error) {
       console.log('Error:', error);
-      setError('Your e-mail address is not registered in our system. Please complete your registration.');
+      setError(
+        'Your e-mail address is not registered in our system. Please complete your registration.'
+      );
     }
   };
+
+  console.log(userRegister, "userRegister")
 
   return (
     <Grid>
@@ -95,7 +94,9 @@ const LoginPage = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  userRegister: state.userRegister.userRegister,
+});
 
 const mapDispatchToProps = {
   createSignIn,

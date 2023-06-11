@@ -70,4 +70,3 @@ export const setUserInfo = (userID) => {
       payload: nutritionistID,
     }
   }
-  

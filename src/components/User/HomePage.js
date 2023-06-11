@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { setUserInfo } from '../../redux/actions/productActions';
 import jwt from 'jsonwebtoken';
+import { Card, CardContent, Typography } from '@mui/material';
 
 const base64UrlEncode = (value) => {
   const base64 = Buffer.from(value).toString('base64');
@@ -10,7 +11,7 @@ const base64UrlEncode = (value) => {
 };
 
 const HomePage = (props) => {
-  const { setUserInfo } = props;
+  const { setUserInfo ,userRegister} = props;
   const [login, setLogin] = useState(false);
   const [store, setStore] = useState(null);
 
@@ -59,14 +60,47 @@ const HomePage = (props) => {
     fetchUserInfo();
   }, []);
 
+  console.log(userRegister,"userRegisteruserRegisteruserRegister")
+
   return (
     <div>
+        <div>
       <h1>Welcome to the Home Page</h1>
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h5" component="div">
+            {userRegister.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Age: <span style={{ color: 'black' }}></span> {userRegister.age}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            University: {userRegister.kilo}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Experience: {userRegister.kilo}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Profession: {userRegister.kilo}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Explanation: {userRegister.dailyMovementAmount}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Explanation: {userRegister.desiredWeight}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Explanation: {userRegister.desiredDestination}
+          </Typography>
+        </CardContent>
+      </Card>
+    </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
+  userRegister: state.userRegister.userRegister
 });
 
 const mapDispatchToProps = {
