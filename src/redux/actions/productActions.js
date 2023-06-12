@@ -28,6 +28,13 @@ export const setCategoryList = (categoryList) => {
     }
 }
 
+export const setNutritionistList = (nutritionistList) => {
+    return {
+        type: ActionTypes.NUTRITIONIST_LIST,
+        payload: nutritionistList,
+    }
+}
+
 
 export const createUser = (userRegister) => {
     return {

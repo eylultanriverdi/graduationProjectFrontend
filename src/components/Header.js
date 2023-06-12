@@ -72,6 +72,7 @@ const Header = (props) => {
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
             <Button color="inherit" href="/">Product List</Button>
             <Button color="inherit" href="/calorieInformation">Calorie Information Page</Button>
+            <Button color="inherit" href="/nutritionistList">Nutritionist List</Button>
             <div>
               <Button
                 color="inherit"

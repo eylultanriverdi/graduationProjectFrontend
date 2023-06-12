@@ -18,6 +18,7 @@ import RegisterPageUser from './components/User/RegisterPageUser';
 import LoginPage from './components/User/LoginPage';
 import RegisterLoginPage from './components/RegisterLoginPage';
 import MainLoginPage from './components/MainLoginPage';
+import NutritionistList from './components/NutritionistList';
 
 function App() {
   const isLoginPage = window.location.pathname === '/loginPage'; // Aktif sayfanın "/loginPage" olup olmadığını kontrol eder
@@ -40,6 +41,7 @@ function App() {
           <Route path="/homePageNutritionist" element={<HomePageNutritionist />} />
           <Route path="/registerLoginPage" element={<RegisterLoginPage />} />
           <Route path="/mainLoginPage" element={<MainLoginPage />} />
+          <Route path="/nutritionistList" element={<NutritionistList />} />
         </Routes>
       </Container>
     </BrowserRouter>
