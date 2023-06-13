@@ -21,6 +21,7 @@ import MainLoginPage from './components/MainLoginPage';
 import NutritionistList from './components/NutritionistList';
 import Background from './components/Background';
 import SelectedNutritionistList from './components/SelectedNutritionistList';
+import CreateRecipe from './components/CreateRecipe';
 
 function App() {
   const isLoginPage = window.location.pathname === '/loginPage'; // Aktif sayfanın "/loginPage" olup olmadığını kontrol eder
@@ -46,6 +47,7 @@ function App() {
           <Route path="/mainLoginPage" element={<MainLoginPage />} />
           <Route path="/nutritionistList" element={<NutritionistList />} />
           <Route path="/selectedNutritionistList" element={<SelectedNutritionistList />} />
+          <Route path="/addRecipe" element={<CreateRecipe />} />
         </Routes>
       </Container>
     </BrowserRouter>

@@ -56,7 +56,7 @@ const HomePageNutritionist = (props) => {
 
     return (
         <div color="#9c27b0" >
-            <h1 style={{ color: '#9c27b0' }}>Welcome {nutritionistRegister.name}</h1>
+            <h1 style={{ color: 'white' }}>Welcome {nutritionistRegister.name}</h1>
             <Card variant="outlined">
                 <CardContent>
                     <Typography variant="body2" color="secondary">
@@ -80,9 +80,8 @@ const HomePageNutritionist = (props) => {
                 <Button variant="contained" color="secondary">
                     Liste Oluşturma İçin Tıklayın
                 </Button>
-                <Button style={{ marginLeft: "10px" }} variant="contained" color="secondary">
-                    Yemek Tarifleri Oluşturmak İçin Tıklayın
-                </Button>
+                <Button style={{ marginLeft: "10px" }} variant="contained" color="secondary" href="/addRecipe">Create New Recipe</Button>
+                
             </Box>
         </div>
     );

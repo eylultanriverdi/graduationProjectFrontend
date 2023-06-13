@@ -21,6 +21,7 @@ const RegisterPageNutritionist = (props) => {
   const buttonStyle = { margin: '8px 0' };
   const textFieldStyle = { marginBottom: '15px' };
 
+  const [uid, setUid] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -36,6 +37,7 @@ const RegisterPageNutritionist = (props) => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const isFormCompleted =
+    uid &&
     name &&
     surname &&
     email &&
@@ -50,17 +52,17 @@ const RegisterPageNutritionist = (props) => {
   const createNutritionistRegister = async () => {
     try {
       const resp = await axios.post('http://localhost:3001/nutritionistRegister', {
-        uid: '',
+        uid: uid,
         name: name,
         surname: surname,
         email: email,
         tel: tel,
         password: password,
         age: age,
-        uni:uni,
-        experience:experience,
-        profession:profession,
-        explanation:explanation
+        uni: uni,
+        experience: experience,
+        profession: profession,
+        explanation: explanation
       });
 
       if (resp.status === 200) {

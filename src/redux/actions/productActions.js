@@ -90,3 +90,10 @@ export const setUserInfo = (userID) => {
       payload: nutritionistID,
     }
   }
+
+  export const createRecipe = (addRecipe) => {
+    return {
+        type: ActionTypes.ADD_RECIPE,
+        payload: addRecipe,
+    }
+}
