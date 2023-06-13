@@ -18,7 +18,7 @@ const RegisterPage = (props) => {
   const { createUser, userRegister } = props;
   const navigate = useNavigate();
   const paperStyle = { padding: 20, margin: '120px auto' };
-  const avatarStyle = { backgroundColor: '#32e232' };
+  const avatarStyle = { backgroundColor: '#9c27b0' };
   const buttonStyle = { margin: '8px 0' };
   const textFieldStyle = { marginBottom: '15px' };
 

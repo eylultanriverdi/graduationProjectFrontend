@@ -67,12 +67,13 @@ const Header = (props) => {
 
   return (
     <Box sx={{ flexGrow: 1, zIndex: 100 }}>
-      <AppBar position="static" style={{ backgroundColor: 'rgb(48 195 48)' }}>
+      <AppBar position="static" style={{ backgroundColor: '#9c27b0' }}>
         <Toolbar>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
             <Button color="inherit" href="/">Product List</Button>
             <Button color="inherit" href="/calorieInformation">Calorie Information Page</Button>
             <Button color="inherit" href="/nutritionistList">Nutritionist List</Button>
+            <Button color="inherit" href="/selectedNutritionistList">Selected Nutritionist List</Button>
             <div>
               <Button
                 color="inherit"

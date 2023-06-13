@@ -9,7 +9,9 @@ const initialState = {
     nutritionistRegister: [],
     nutritionistSignIn: [],
     nutritionistInfoToken: [],
-    nutritionistList: []
+    nutritionistList: [],
+    selectedNutritionist:[],
+    selectedNutritionistList: []
 }
 
 export const productReducer = (state = initialState.products, { type, payload }) => {
@@ -30,6 +32,14 @@ export const calorieInfoReducer = (state = initialState.calorieInfo, { type, pay
     }
 }
 
+export const selectedNutritionistReducer = (state = initialState.selectedNutritionist, { type, payload }) => {
+    switch (type) {
+        case ActionTypes.SELECTED_NUTRITIONIST:
+            return { ...state, selectedNutritionist: payload }
+        default:
+            return state
+    }
+}
 
 export const calorieInfoListReducer = (state = initialState.calorieInfo, { type, payload }) => {
     switch (type) {
@@ -57,6 +67,16 @@ export const nutritionistListReducer = (state = initialState.nutritionistList, {
             return state
     }
 }
+
+export const selectedNutritionistListReducer = (state = initialState.selectedNutritionistList, { type, payload }) => {
+    switch (type) {
+        case ActionTypes.SELECTED_NUTRITIONIST_LIST:
+            return { ...state, selectedNutritionistList: payload }
+        default:
+            return state
+    }
+}
+
 
 export const userRegisterReducer = (state = initialState.userRegister, { type, payload }) => {
     switch (type) {

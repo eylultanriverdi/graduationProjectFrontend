@@ -153,7 +153,6 @@ const CalorieInfoPage = (props) => {
       return (
         <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', padding: '20px', position: 'relative' }}>
           <Grid container spacing={2}>
-            {/* Ürün bilgileri */}
             <Grid item xs={12} sm={8}>
               <Typography variant="h4" component="h2" style={{ marginBottom: '10px' }}>
                 {productName}
@@ -192,7 +191,7 @@ const CalorieInfoPage = (props) => {
                 style={{ position: 'absolute', bottom: '10px', right: '10px' }}
                 onClick={() => handleAddToList(productId)}
               >
-                Bugünün Listesine Ekle
+                Add to Today's List
               </Button>
             </Grid>
           </Grid>
@@ -203,7 +202,7 @@ const CalorieInfoPage = (props) => {
 
   return (
     <div>
-      <h1 style={{ color: '#9c27b0' }}>Calorie Info Page</h1>
+      <h1 style={{ color: "white"  }}>Calorie Info Page</h1>
       <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
         <Typography variant="h5" color='secondary' gutterBottom>
           Add Food

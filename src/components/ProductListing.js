@@ -110,7 +110,7 @@ const ProductListing = (props) => {
     const { productId, productName, description, productImage, carbohydrateValue, glutenFree, glutenValue, ketogenicDiet, oilValue, proteinValue, saltFree, calorieValue } = product;
 
     return (
-      <Link to={`/product/${productId}`} style={{ textDecoration: 'none', color: '#9c27b0' }} key={productId}>
+      // <Link to={`/product/${productId}`} style={{ textDecoration: 'none', color: '#9c27b0' }} key={productId}>
         <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', padding: '20px', position: 'relative' }}>
           <Grid container spacing={2}>
             {/* Ürün görseli */}
@@ -166,7 +166,7 @@ const ProductListing = (props) => {
             </Grid>
           </Grid>
         </Paper>
-        </Link>
+        // </Link>
     );
   });
 
@@ -174,7 +174,7 @@ const ProductListing = (props) => {
 
   return (
     <div>
-      <h1 style={{ color: '#9c27b0' }}>Product Listing</h1>
+      <h1 style={{ color: "white" }}>Product Listing</h1>
       {renderList}
       <Stack spacing={2} style={{ marginTop: '20px' }}>
         <Pagination count={8} color="secondary" page={currentPage} onChange={handlePageChange} />

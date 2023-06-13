@@ -14,6 +14,13 @@ export const createCalorieInfo = (calorieInfo) => {
     }
 }
 
+export const createNutritionistSelected = (selectedNutritionist) => {
+    return {
+        type: ActionTypes.SELECTED_NUTRITIONIST,
+        payload: selectedNutritionist,
+    }
+}
+
 export const setCalorieInfoList = (calorieInfo) => {
     return {
         type: ActionTypes.CALORIE_INFO_LIST,
@@ -35,6 +42,12 @@ export const setNutritionistList = (nutritionistList) => {
     }
 }
 
+export const setSelectedNutritionistList = (selectedNutritionistList) => {
+    return {
+        type: ActionTypes.SELECTED_NUTRITIONIST_LIST,
+        payload: selectedNutritionistList,
+    }
+}
 
 export const createUser = (userRegister) => {
     return {
