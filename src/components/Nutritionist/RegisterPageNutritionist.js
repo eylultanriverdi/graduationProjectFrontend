@@ -226,7 +226,6 @@ const RegisterPageNutritionist = (props) => {
           type="submit"
           color="secondary"
           variant="contained"
-          disabled={!isFormCompleted}
           fullWidth
           style={buttonStyle}
           onClick={createNutritionistRegister}
