@@ -42,6 +42,14 @@ export const setNutritionistList = (nutritionistList) => {
     }
 }
 
+export const setRecipeList = (recipeList) => {
+    return {
+        type: ActionTypes.RECIPE_LIST,
+        payload: recipeList,
+    }
+}
+
+
 export const setSelectedNutritionistList = (selectedNutritionistList) => {
     return {
         type: ActionTypes.SELECTED_NUTRITIONIST_LIST,

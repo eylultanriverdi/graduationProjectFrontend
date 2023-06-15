@@ -74,6 +74,7 @@ const Header = (props) => {
             <Button color="inherit" href="/calorieInformation">Calorie Information Page</Button>
             <Button color="inherit" href="/nutritionistList">Nutritionist List</Button>
             <Button color="inherit" href="/selectedNutritionistList">Selected Nutritionist List</Button>
+            <Button color="inherit" href="/recipeList">Recipe List</Button>
             <div>
               <Button
                 color="inherit"

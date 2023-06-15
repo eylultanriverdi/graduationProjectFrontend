@@ -12,7 +12,8 @@ const initialState = {
     nutritionistList: [],
     selectedNutritionist:[],
     selectedNutritionistList: [],
-    addRecipe : []
+    addRecipe : [],
+    recipeList: []
 }
 
 export const productReducer = (state = initialState.products, { type, payload }) => {
@@ -64,6 +65,15 @@ export const nutritionistListReducer = (state = initialState.nutritionistList, {
     switch (type) {
         case ActionTypes.NUTRITIONIST_LIST:
             return { ...state, nutritionistList: payload }
+        default:
+            return state
+    }
+}
+
+export const recipeListReducer = (state = initialState.recipeList, { type, payload }) => {
+    switch (type) {
+        case ActionTypes.RECIPE_LIST:
+            return { ...state, recipeList: payload }
         default:
             return state
     }

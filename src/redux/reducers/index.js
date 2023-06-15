@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { productReducer , calorieInfoReducer, calorieInfoListReducer, categoryListReducer, userRegisterReducer, userSignReducer, userInfoReducer, nutritionistRegisterReducer, nutritionistSignReducer, nutritionistInfoReducer, nutritionistListReducer, selectedNutritionistReducer, selectedNutritionistListReducer, addRecipeReducer} from "./productReducer";
+import { productReducer , calorieInfoReducer, calorieInfoListReducer, categoryListReducer, userRegisterReducer, userSignReducer, userInfoReducer, nutritionistRegisterReducer, nutritionistSignReducer, nutritionistInfoReducer, nutritionistListReducer, selectedNutritionistReducer, selectedNutritionistListReducer, addRecipeReducer, recipeListReducer} from "./productReducer";
 
 
 const reducers = combineReducers({
@@ -16,7 +16,8 @@ const reducers = combineReducers({
     nutritionistList : nutritionistListReducer,
     selectedNutritionist: selectedNutritionistReducer,
     selectedNutritionistList: selectedNutritionistListReducer,
-    addRecipe : addRecipeReducer
+    addRecipe : addRecipeReducer,
+    recipeList: recipeListReducer
 })
 
 export default reducers;
