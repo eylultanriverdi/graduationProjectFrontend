@@ -178,7 +178,7 @@ const ProductListing = (props) => {
       <h1 style={{ color: 'white' }}>Product Listing</h1>
       {renderList}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', fontSize:"30px" }}>
-        <Pagination count={8} color="secondary" page={currentPage} onChange={handlePageChange} />
+        <Pagination count={10} color="secondary" page={currentPage} onChange={handlePageChange} />
       </div>
     </div>
   );

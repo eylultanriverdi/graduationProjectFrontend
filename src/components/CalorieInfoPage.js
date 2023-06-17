@@ -203,23 +203,6 @@ const CalorieInfoPage = (props) => {
   return (
     <div>
       <h1 style={{ color: "white" }}>Calorie Info Page</h1>
-      <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
-        <Typography variant="h5" color='secondary' gutterBottom>
-          Add Food
-        </Typography>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <TextField
-            label="Food"
-            fullWidth
-            margin="normal"
-            required
-            color='secondary'
-          />
-          <Button variant="contained" color='secondary'>
-            Add Food
-          </Button>
-        </form>
-      </Paper>
       <div>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
           <div style={{ position: 'relative', width: '200px', height: '200px' }}>
@@ -228,7 +211,7 @@ const CalorieInfoPage = (props) => {
               value={(totalCalories / 3000) * 100}
               size={200}
               thickness={2}
-              color="secondary"
+              style={{color:"white"}}
             />
             <Typography variant="h4" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
               {totalCalories}
