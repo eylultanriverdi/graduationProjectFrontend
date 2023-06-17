@@ -38,9 +38,12 @@ const SelectedNutritionistList = (props) => {
     const openWhatsAppChat = (phoneNumber) => {
         const formattedPhoneNumber = phoneNumber.replace(/[^0-9]/g, '');
         const whatsappURL = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}`;
+      
+        window.open(whatsappURL, '_blank', 'noopener noreferrer');
+        console.log(whatsappURL);
+      };
+      
 
-        window.open(whatsappURL, '_blank');
-    };
 
     return (
         <div>
@@ -84,7 +87,7 @@ const SelectedNutritionistList = (props) => {
                                     }}
                                 >
                                     <WhatsAppIcon
-                                        onClick={() => openWhatsAppChat('05369777282')}
+                                        onClick={() => openWhatsAppChat('05556319465')}
                                         style={{ fontSize: '40px', color: 'white', backgroundColor: '#26e726', borderRadius: '50%', padding: '5px' }}
                                     />
                                 </div>

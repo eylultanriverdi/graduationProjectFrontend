@@ -105,3 +105,10 @@ export const setUserInfo = (userID) => {
         payload: addRecipe,
     }
 }
+
+export const createDietList = (createDietList) => {
+    return {
+        type: ActionTypes.CREATE_DIET_LIST,
+        payload: createDietList,
+    }
+}

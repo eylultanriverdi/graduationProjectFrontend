@@ -45,7 +45,7 @@ const CreateRecipe = (props) => {
     }, []);
 
     return (
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" style={{width: '100%', align: "center"}}>
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
                     <img

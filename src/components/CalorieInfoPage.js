@@ -202,7 +202,7 @@ const CalorieInfoPage = (props) => {
 
   return (
     <div>
-      <h1 style={{ color: "white"  }}>Calorie Info Page</h1>
+      <h1 style={{ color: "white" }}>Calorie Info Page</h1>
       <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
         <Typography variant="h5" color='secondary' gutterBottom>
           Add Food
@@ -215,7 +215,7 @@ const CalorieInfoPage = (props) => {
             required
             color='secondary'
           />
-          <Button variant="contained" color='secondary' >
+          <Button variant="contained" color='secondary'>
             Add Food
           </Button>
         </form>
@@ -234,8 +234,8 @@ const CalorieInfoPage = (props) => {
               {totalCalories}
             </Typography>
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
       {renderProductList}
     </div>
   );

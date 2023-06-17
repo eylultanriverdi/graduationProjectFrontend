@@ -59,7 +59,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setRecipeList: (recipe) => dispatch(createRecipe(recipe)),
+        setRecipeList: (recipe) => dispatch(setRecipeList(recipe)),
     };
 };
 

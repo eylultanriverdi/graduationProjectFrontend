@@ -1,99 +1,139 @@
-import React, { useEffect, useState } from 'react'
-import { connect } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch, useSelector } from "react-redux"
-import { selectedProducts, removeSelectedProductReducer } from '../redux/actions/productActions';
-import { Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import '@fontsource/roboto';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProducts } from '../redux/actions/productActions';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { setProducts } from '../redux/actions/productActions';
+import { Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import { QRCodeCanvas } from 'qrcode.react';
 
-const ProductDetail = (props) => {
+const ProductDetail = ({ allProducts, setProducts }) => {
+  const dispatch = useDispatch();
+  const { productId } = useParams();
+  const [product, setProduct] = useState({});
+  const [showQRPopup, setShowQRPopup] = useState(false);
 
-    const { allProducts } = props;
-    const dispatch = useDispatch();
-    const { productName, description, productImage, carbohydrateValue, glutenFree, glutenValue, ketogenicDiet, oilValue, proteinValue, saltFree, calorieValue } = allProducts;
-    const productId = window.location.pathname.split("/")[2];
-    const [product, setProduct] = useState({})
-    console.log(allProducts)
+  const fetchProducts = async () => {
+    try {
+      const resp = await axios.get(`http://localhost:3001/products`);
+      if (resp && resp.status === 200) {
+        const { pagination, products } = resp.data;
+        const { totalPages } = pagination;
 
+        const decodedProducts = products.map((product) => {
+          const base64Image = `data:image/jpeg;base64,${product.productImage}`;
+          return {
+            ...product,
+            productImage: base64Image
+          };
+        });
 
-    const fetchProducts = async () => {
-      try {
-        const resp = await axios.get("http://localhost:3001/products");
-        if (resp && resp.status === 200) {
-          const decodedProducts = resp.data.map((product) => {
-            const base64Image = `data:image/jpeg;base64,${product.productImage}`;
-            return {
-              ...product,
-              productImage: base64Image
-            };
-          });
-          
-          
-          dispatch(setProducts(decodedProducts));
-        }
-      } catch (error) {
-        console.log("Error:", error);
+        setProducts(decodedProducts);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    const getProductId = () => {
+      const selectedProduct = allProducts.find((product) => product.productId === productId);
+      if (selectedProduct) {
+        setProduct(selectedProduct);
       }
     };
-  
 
-    const getProductId = () => {
-        allProducts && allProducts.map((product) => {
-          if (productId === product.productId) {
-            setProduct(product)
-            return
-          }
-        })
-      }
+    if (allProducts && allProducts.length > 0) {
+      getProductId();
+    }
+  }, [allProducts, productId]);
 
+  const handleQRButtonClick = () => {
+    setShowQRPopup(true);
+  };
 
-    useEffect(() => {
-      fetchProducts();
-    }, []);
-  
+  const closeQRPopup = () => {
+    setShowQRPopup(false);
+  };
 
+  return (
+    <div>
+      <h1 style={{ color: 'white' }}>Product Detail</h1>
+      <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', height: '950px' }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <img src={product.productImage} align="center" style={{ marginBottom: '50px', marginLeft: '10px', width: '100%', height: 'auto' }} alt="Product" />
+          </Grid>
+          <Grid item xs={12} sm={6} style={{ color: '#9c27b0', padding: '20px' }}>
+            <Typography variant="h4" component="h2" style={{ marginBottom: '10px' }}>
+              {product.productName || 'Loading...'}
+            </Typography>
+            <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              {product.description || 'Loading...'}
+            </Typography>
+            <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              Protein: {product.proteinValue || 'Loading...'}
+            </Typography>
+            <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              Carbohydrate: {product.carbohydrateValue || 'Loading...'}
+            </Typography>
+            <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              Fat: {product.oilValue || 'Loading...'}
+            </Typography>
+            <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              Gluten Value: {product.glutenValue || 'Loading...'}
+            </Typography>
+            <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              Gluten Free: {product.glutenFree || 'Loading...'}
+            </Typography>
+            <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              Ketogenic Diet: {product.ketogenicDiet || 'Loading...'}
+            </Typography>
+            <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              Salt Free: {product.saltFree || 'Loading...'}
+            </Typography>
+            <Typography variant="body1" component="p">
+              Calories: {product.calorieValue || 'Loading...'} cal
+            </Typography>
+            <Button variant="contained" color="secondary" onClick={handleQRButtonClick} style={{ marginTop: '20px' }}>
+              Generate QR Code
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+      <Dialog open={showQRPopup} onClose={closeQRPopup}>
+        <DialogTitle color="secondary">QR Code</DialogTitle>
+        <DialogContent>
+          <QRCodeCanvas value={window.location.href} size={256} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeQRPopup} color="secondary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+};
 
-    useEffect(() => {
-        if (Object.keys(product).length === 0) {
-          getProductId()
-        }
-      }, [allProducts])
-
-    return (
-        <div>
-            <h1>Product Detail</h1>
-            <Paper elevation={10} style={{ marginTop: "50px", marginBottom: "80px", height: "950px" }} >
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={4}>
-                        <img src={product.productImage} aling="center" style={{ width: "300px", height: "350px", marginBottom: "50px", marginLeft: "10px" }}></img>
-                    </Grid>
-                    <Grid item xs={12} sm={4} style={{ color: "#9c27b0" }}>
-                        <Typography variant="h4" component="h2">{product.productName}</Typography>
-                        <Typography variant="h4" component="h2">{product.proteinValue}</Typography>
-                        <Typography variant="h4" component="h2">{product.carbohydrateValue}</Typography>
-                        <Typography variant="h4" component="h2">{product.oilValue}</Typography>
-                        <Typography variant="h4" component="h2">{product.glutenValue}</Typography>
-                        <Typography variant="h4" component="h2">{product.glutenFree}</Typography>
-                        <Typography variant="h4" component="h2">{product.ketogenicDiet}</Typography>
-                        <Typography variant="h4" component="h2">{product.saltFree}</Typography>
-                        <Typography variant="h4" component="h2">{product.calorieValue}</Typography>
-                    </Grid>
-                </Grid>
-            </Paper >
-        </div>
-    )
-}
-
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => {
+  return {
     allProducts: state.allProducts.products
-});
+  };
+};
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setProducts: (products) => {
+      dispatch(setProducts(products));
+    }
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

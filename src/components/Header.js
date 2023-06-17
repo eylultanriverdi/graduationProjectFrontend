@@ -16,7 +16,7 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import Stack from '@mui/material/Stack';
+import wholesomeLogo2 from '../assets/wholesomeLogo2.png';
 
 const Header = (props) => {
   const { categoryList, setCategoryList } = props;
@@ -69,15 +69,22 @@ const Header = (props) => {
     <Box sx={{ flexGrow: 1, zIndex: 100 }}>
       <AppBar position="static" style={{ backgroundColor: '#9c27b0' }}>
         <Toolbar>
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
-            <Button color="inherit" href="/">Product List</Button>
-            <Button color="inherit" href="/calorieInformation">Calorie Information Page</Button>
-            <Button color="inherit" href="/nutritionistList">Nutritionist List</Button>
-            <Button color="inherit" href="/selectedNutritionistList">Selected Nutritionist List</Button>
-            <Button color="inherit" href="/recipeList">Recipe List</Button>
+          <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+            <img src={wholesomeLogo2} style={{ width: '200px', marginRight: 'auto' }} />
+            <Button style={{ marginLeft: "10px", fontSize:"12px" }} variant="contained" color="secondary" href="/">Product List</Button>
+            <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" color="secondary" href="/calorieInformation">Calorie Information Page</Button>
+            <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" color="secondary" href="/nutritionistList">Nutritionist List</Button>
+            <Button style={{ marginLeft: "10px",fontSize:"12px" }} variant="contained" color="secondary" href="/selectedNutritionistList">Selected Nutritionist List</Button>
+            <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" color="secondary" href="/recipeList">Recipe List</Button>
+            <Button variant="contained" href="/createDietList" color="secondary">
+            Create Diet List
+            </Button>
+            <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" color="secondary" href="/addRecipe">Create New Recipe</Button>
             <div>
               <Button
-                color="inherit"
+                style={{ marginLeft: "10px",fontSize:"12px"  }}
+                variant="contained"
+                color="secondary"
                 ref={anchorRef}
                 id="composition-button"
                 aria-controls={open ? 'composition-menu' : undefined}
@@ -135,8 +142,8 @@ const Header = (props) => {
               </Popper>
             </div>
           </Box>
-          <Button color="inherit" href="mainLoginPage">Login</Button>
-          <Button color="inherit" href="registerLoginPage">Register</Button>
+          <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" color="secondary" href="mainLoginPage">Login</Button>
+          <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" color="secondary" href="registerLoginPage">Register</Button>
         </Toolbar>
       </AppBar>
     </Box>
