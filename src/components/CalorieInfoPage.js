@@ -115,27 +115,28 @@ const CalorieInfoPage = (props) => {
   const calculateTotalOil = () => {
     let total = 0;
     const currentDate = new Date().toISOString().split('T')[0];
-
+  
     if (calorieInfoList && calorieInfoList.length > 0) {
       const productsWithSameDate = calorieInfoList.filter((calorieInfo) => {
         const entryDate = new Date(calorieInfo.createDate).toISOString().split('T')[0];
         return entryDate === currentDate;
       });
-
+  
       if (productsWithSameDate.length > 0) {
         total = productsWithSameDate.reduce((sum, calorieInfo) => {
           const products = calorieInfo.products;
           const productOilValueSum = products.reduce((productSum, product) => {
-            return productSum + parseInt(product.oilValue);
+            const oilValue = parseInt(product.oilValue);
+            return isNaN(oilValue) ? productSum : productSum + oilValue;
           }, 0);
           return sum + productOilValueSum;
         }, 0);
       }
     }
-
+  
     return total;
   };
-
+  
 
   const fetchCalorieInfoList = async () => {
     try {
