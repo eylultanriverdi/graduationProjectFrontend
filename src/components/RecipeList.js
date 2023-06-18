@@ -33,15 +33,20 @@ const RecipeList = (props) => {
 
     return (
         <div>
+            <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
+                <Typography color="secondary" style={{ marginLeft: '20px', fontSize: 'xx-large' }}>
+                    Recipe List
+                </Typography>
+            </Card>
             {recipeList &&
                 recipeList.map((recipe) => (
                     <div key={recipe.recipeID} style={{ color: '#9c27b0' }}>
-                        <Card variant="outlined" style={{marginBottom: '20px', marginTop: '20px'}}>
-                            <Typography   color="secondary" style={{ marginLeft:'20px', fontSize:'xx-large' , marginTop: '10px'}}>
-                            {recipe.recipeName}
+                        <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
+                            <Typography color="secondary" style={{ marginLeft: '20px', fontSize: 'xx-large', marginTop: '10px' }}>
+                                {recipe.recipeName}
                             </Typography>
                             <Typography variant="body2" color="secondary" style={{ marginLeft: '20px', marginRight: '20px', marginBottom: '20px', marginTop: '20px' }}>
-                              
+
                                 {recipe.recipeDetail}
                             </Typography>
                         </Card>

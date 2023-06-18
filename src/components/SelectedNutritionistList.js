@@ -46,13 +46,18 @@ const SelectedNutritionistList = (props) => {
 
     return (
         <div>
+            <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
+                <Typography color="secondary" style={{ marginLeft: '20px', fontSize: 'xx-large' }}>
+                    Selected Nutritionist List
+                </Typography>
+            </Card>
             {selectedNutritionistList && selectedNutritionistList.map((nutritionist) => (
                 nutritionist.nutritionist.map((nutritionistSelected) =>
                     <div style={{ color: '#9c27b0' }}>
                         <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
                             <CardContent>
                                 <Typography color="secondary" style={{ fontSize: 'xx-large', marginTop: '10px' }}>
-                                {nutritionistSelected.name} {nutritionistSelected.surname}
+                                    {nutritionistSelected.name} {nutritionistSelected.surname}
                                 </Typography>
                                 <Typography variant="body2" color="secondary">
                                     Age: {nutritionistSelected.age}

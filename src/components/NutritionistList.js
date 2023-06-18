@@ -62,7 +62,7 @@ const NutritionistList = (props) => {
                             },
                         ],
                     },
-                    { timeout: 5000 } 
+                    { timeout: 5000 }
                 );
 
                 createNutritionistSelected(resp.data);
@@ -87,20 +87,25 @@ const NutritionistList = (props) => {
     const openWhatsAppChat = (phoneNumber) => {
         const formattedPhoneNumber = phoneNumber.replace(/[^0-9]/g, '');
         const whatsappURL = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}`;
-      
+
         window.open(whatsappURL, '_blank', 'noopener noreferrer');
-      };
-      
+    };
+
     return (
         <div>
+            <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
+                <Typography color="secondary" style={{ marginLeft: '20px', fontSize: 'xx-large' }}>
+                    Nutritionist List
+                </Typography>
+            </Card>
             {nutritionistList &&
                 nutritionistList.map((nutritionist) => (
                     <div key={nutritionist.id} style={{ color: '#9c27b0' }}>
-                        <Card variant="outlined"  style={{marginBottom: '20px', marginTop: '20px'}}>
+                        <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
                             <CardContent>
-                            <Typography   color="secondary" style={{ fontSize:'xx-large' , marginTop: '10px'}}>
-                            {nutritionist.name} {nutritionist.surname}
-                            </Typography>
+                                <Typography color="secondary" style={{ fontSize: 'xx-large', marginTop: '10px' }}>
+                                    {nutritionist.name} {nutritionist.surname}
+                                </Typography>
                                 <Typography variant="body2" color="secondary">
                                     Age: {nutritionist.age}
                                 </Typography>

@@ -117,7 +117,7 @@ const CategoryList = (props) => {
         )}
         <Typography variant="h6" component="p" style={{ marginTop: '20px', marginBottom: '20px' ,color: 'secondary'}}>List Owner: {category.dietitianName}</Typography>
         <Typography variant="h6" component="p" style={{ marginTop: '20px', marginBottom: '20px' }}>{category.description}</Typography>
-        <Typography variant="h5" component="h3" color="secondary" style={{ marginBottom: '20px', fontWeight: 'bold' }}>Planlar</Typography>
+        <Typography variant="h5" component="h3" color="secondary" style={{ marginBottom: '20px', fontWeight: 'bold' }}>Plans</Typography>
         {category.dailyDietPlan && category.dailyDietPlan.map((plan, index) => (
           <div key={index}>
             <Typography variant="h6" component="p" style={{ marginTop: '10px', fontWeight: 'bold', color: 'secondary' }}>{plan.ageRange}</Typography>
