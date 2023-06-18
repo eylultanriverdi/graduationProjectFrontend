@@ -97,11 +97,11 @@ const NutritionistList = (props) => {
             {nutritionistList &&
                 nutritionistList.map((nutritionist) => (
                     <div key={nutritionist.id} style={{ color: '#9c27b0' }}>
-                        <h2 style={{ color: 'white' }}>
-                            {nutritionist.name} {nutritionist.surname}
-                        </h2>
-                        <Card variant="outlined">
+                        <Card variant="outlined"  style={{marginBottom: '20px', marginTop: '20px'}}>
                             <CardContent>
+                            <Typography   color="secondary" style={{ fontSize:'xx-large' , marginTop: '10px'}}>
+                            {nutritionist.name} {nutritionist.surname}
+                            </Typography>
                                 <Typography variant="body2" color="secondary">
                                     Age: {nutritionist.age}
                                 </Typography>

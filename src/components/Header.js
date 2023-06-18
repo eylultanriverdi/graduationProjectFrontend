@@ -129,6 +129,7 @@ const Header = (props) => {
                                 borderBottom: index !== categoryList.length - 1 ? '1px solid #e0e0e0' : 'none',
                                 paddingTop: '8px',
                                 paddingBottom: '8px',
+                                color: '#9c27b0'
                               }}
                             >
                               <ListItemText primary={category.categoryName} />

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setProducts } from '../redux/actions/productActions';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import { Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button ,Card} from '@mui/material';
 import { QRCodeCanvas } from 'qrcode.react';
 
 const ProductDetail = ({ allProducts, setProducts }) => {
@@ -64,7 +64,11 @@ const ProductDetail = ({ allProducts, setProducts }) => {
 
   return (
     <div>
-      <h1 style={{ color: 'white' }}>Product Detail</h1>
+      <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
+        <Typography color="secondary" style={{ marginLeft: '20px', fontSize: 'xx-large' }}>
+          Product Detail
+        </Typography>
+      </Card>
       <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', height: '950px' }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>

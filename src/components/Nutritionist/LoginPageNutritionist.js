@@ -52,7 +52,7 @@ const LoginPageNutritionist = (props) => {
           <Avatar style={avatarStyle}>
             <LockOutlinedIcon />
           </Avatar>
-          <h2>Sign in</h2>
+          <h2 style={{color: '#9c27b0'}} >Sign in</h2>
         </Grid>
         <TextField
           label="Email"
@@ -86,7 +86,7 @@ const LoginPageNutritionist = (props) => {
         >
           SIGN IN
         </Button>
-        <Typography>
+        <Typography color="secondary">
           Do you have an account ?
           <Link to="/registerPageNutritionist" color="secondary">
             Sign Up

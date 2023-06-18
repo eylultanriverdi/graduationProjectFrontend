@@ -2,13 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createCalorieInfo, setCalorieInfoList, setProducts } from '../redux/actions/productActions';
 import axios from 'axios';
-import { CircularProgress, Grid, Paper, Typography, Button, TextField } from '@mui/material';
+import { CircularProgress, Grid, Paper, Typography, Button, TextField, Card } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 const CalorieInfoPage = (props) => {
   const { allProducts, calorieInfoList, createCalorieInfo } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Her sayfada kaç ürün gösterileceği
   const [totalCalories, setTotalCalories] = useState(0);
+  const [totalProtein, setTotalProtein] = useState(0);
+  const [totalCarbohydrate, setTotalCarbohydrate] = useState(0);
+  const [totalOil, setTotalOil] = useState(0);
 
   const fetchProducts = async () => {
     try {
@@ -54,6 +63,80 @@ const CalorieInfoPage = (props) => {
     return total;
   };
 
+
+  const calculateTotalProtein = () => {
+    let total = 0;
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    if (calorieInfoList && calorieInfoList.length > 0) {
+      const productsWithSameDate = calorieInfoList.filter((calorieInfo) => {
+        const entryDate = new Date(calorieInfo.createDate).toISOString().split('T')[0];
+        return entryDate === currentDate;
+      });
+
+      if (productsWithSameDate.length > 0) {
+        total = productsWithSameDate.reduce((sum, calorieInfo) => {
+          const products = calorieInfo.products;
+          const productProteinSum = products.reduce((productSum, product) => {
+            return productSum + parseInt(product.proteinValue);
+          }, 0);
+          return sum + productProteinSum;
+        }, 0);
+      }
+    }
+
+    return total;
+  };
+
+  const calculateTotalCarbohydrate = () => {
+    let total = 0;
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    if (calorieInfoList && calorieInfoList.length > 0) {
+      const productsWithSameDate = calorieInfoList.filter((calorieInfo) => {
+        const entryDate = new Date(calorieInfo.createDate).toISOString().split('T')[0];
+        return entryDate === currentDate;
+      });
+
+      if (productsWithSameDate.length > 0) {
+        total = productsWithSameDate.reduce((sum, calorieInfo) => {
+          const products = calorieInfo.products;
+          const productCarbohydrateValueSum = products.reduce((productSum, product) => {
+            return productSum + parseInt(product.carbohydrateValue);
+          }, 0);
+          return sum + productCarbohydrateValueSum;
+        }, 0);
+      }
+    }
+
+    return total;
+  };
+
+  const calculateTotalOil = () => {
+    let total = 0;
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    if (calorieInfoList && calorieInfoList.length > 0) {
+      const productsWithSameDate = calorieInfoList.filter((calorieInfo) => {
+        const entryDate = new Date(calorieInfo.createDate).toISOString().split('T')[0];
+        return entryDate === currentDate;
+      });
+
+      if (productsWithSameDate.length > 0) {
+        total = productsWithSameDate.reduce((sum, calorieInfo) => {
+          const products = calorieInfo.products;
+          const productOilValueSum = products.reduce((productSum, product) => {
+            return productSum + parseInt(product.oilValue);
+          }, 0);
+          return sum + productOilValueSum;
+        }, 0);
+      }
+    }
+
+    return total;
+  };
+
+
   const fetchCalorieInfoList = async () => {
     try {
       const resp = await axios.get(`http://localhost:3001/calorieInfo`);
@@ -77,59 +160,18 @@ const CalorieInfoPage = (props) => {
     setTotalCalories(calculateTotalCalories());
   }, [calorieInfoList]);
 
-  const handleAddToList = async (productId) => {
-    const currentDate = new Date().toISOString().slice(0, 10);
+  useEffect(() => {
+    setTotalProtein(calculateTotalProtein());
+  }, [calorieInfoList]);
 
-    try {
-      const selectedProduct = allProducts.find((product) => product.productId === productId);
+  useEffect(() => {
+    setTotalCarbohydrate(calculateTotalCarbohydrate());
+  }, [calorieInfoList]);
 
-      if (selectedProduct) {
-        const {
-          productId,
-          productName,
-          description,
-          productImage,
-          proteinValue,
-          carbohydrateValue,
-          oilValue,
-          glutenValue,
-          ketogenicDiet,
-          glutenFree,
-          saltFree,
-          calorieValue
-        } = selectedProduct;
+  useEffect(() => {
+    setTotalOil(calculateTotalOil());
+  }, [calorieInfoList]);
 
-        const resp = await axios.post(`http://localhost:3001/addList`, {
-          calorieListId: "",
-          products: [
-            {
-              productId: productId,
-              productName: productName,
-              description: description,
-              productImage: "",
-              proteinValue: proteinValue,
-              carbohydrateValue: carbohydrateValue,
-              oilValue: oilValue,
-              glutenValue: glutenValue,
-              ketogenicDiet: ketogenicDiet,
-              glutenFree: glutenFree,
-              saltFree: glutenFree,
-              calorieValue: calorieValue
-            }
-          ],
-          totalCalorie: calorieValue,
-          createDate: currentDate
-        });
-
-        createCalorieInfo(resp.data);
-        setTotalCalories(totalCalories + parseInt(calorieValue));
-      } else {
-        console.log('Product not found');
-      }
-    } catch (error) {
-      console.log('Error:', error.response);
-    }
-  };
 
   const renderProductList = calorieInfoList && calorieInfoList.map((calorieInfo) => {
     const { products } = calorieInfo;
@@ -154,45 +196,36 @@ const CalorieInfoPage = (props) => {
         <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', padding: '20px', position: 'relative' }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={8}>
-              <Typography variant="h4" component="h2" style={{ marginBottom: '10px' }}>
+              <Typography variant="h4" component="h2" style={{ marginBottom: '10px', color: "#9c27b0" }}>
                 {productName}
               </Typography>
-              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px', color: "#9c27b0" }}>
                 {description}
               </Typography>
-              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
-                Protein: {proteinValue}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px', color: "#9c27b0" }}>
+                Protein Value: {proteinValue}
               </Typography>
-              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
-                Hidrat: {carbohydrateValue}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px', color: "#9c27b0" }}>
+                Carbohydrate: {carbohydrateValue}
               </Typography>
-              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
-                Yağ: {oilValue}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px', color: "#9c27b0" }}>
+                Oil Value: {oilValue}
               </Typography>
-              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
-                Gluten Değeri: {glutenValue}
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px', color: "#9c27b0" }}>
+                Gluten Value: {glutenValue}
               </Typography>
-              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px', color: "#9c27b0" }}>
                 Gluten Free: {glutenFree}
               </Typography>
-              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px', color: "#9c27b0" }}>
                 Ketogenic Diet: {ketogenicDiet}
               </Typography>
-              <Typography variant="body1" component="p" style={{ marginBottom: '5px' }}>
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px', color: "#9c27b0" }}>
                 Salt Free: {saltFree}
               </Typography>
-              <Typography variant="body1" component="p">
+              <Typography variant="body1" component="p" style={{ marginBottom: '5px', color: "#9c27b0" }}>
                 Kalori: {calorieValue}
               </Typography>
-              <Button
-                variant="contained"
-                color="secondary"
-                size="small"
-                style={{ position: 'absolute', bottom: '10px', right: '10px' }}
-                onClick={() => handleAddToList(productId)}
-              >
-                Add to Today's List
-              </Button>
             </Grid>
           </Grid>
         </Paper>
@@ -202,22 +235,46 @@ const CalorieInfoPage = (props) => {
 
   return (
     <div>
-      <h1 style={{ color: "white" }}>Calorie Info Page</h1>
+      <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
+        <Typography color="secondary" style={{ marginLeft: '20px', fontSize: 'xx-large'}}>
+        Calorie Info Page
+        </Typography>
+      </Card>
       <div>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-          <div style={{ position: 'relative', width: '200px', height: '200px' }}>
-            <CircularProgress
-              variant="determinate"
-              value={(totalCalories / 3000) * 100}
-              size={200}
-              thickness={2}
-              style={{color:"white"}}
-            />
-            <Typography variant="h4" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-              {totalCalories}
-            </Typography>
+        <Card variant="outlined" style={{ marginBottom: '20px', position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+            <div style={{ position: 'relative', width: '200px', height: '200px', marginBottom: '20px', marginTop: '20px' }}>
+              <CircularProgress
+                variant="determinate"
+                value={(totalCalories / 3000) * 100}
+                size={200}
+                thickness={2}
+                style={{ color: "#9c27b0" }}
+              />
+              <Typography variant="h4" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                {totalCalories}
+              </Typography>
+            </div>
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ color: "#9c27b0", fontWeight: "bold" }} >Total Protein Value</TableCell>
+                    <TableCell style={{ color: "#9c27b0", fontWeight: "bold" }} >Total Carbohydrate Value</TableCell>
+                    <TableCell style={{ color: "#9c27b0", fontWeight: "bold" }}>Total Oil Value</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell style={{ color: "#9c27b0", fontWeight: "bold" }}>{totalProtein}</TableCell>
+                    <TableCell style={{ color: "#9c27b0", fontWeight: "bold" }}>{totalCarbohydrate}</TableCell>
+                    <TableCell style={{ color: "#9c27b0", fontWeight: "bold" }}>{totalOil}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
-        </div>
+        </Card>
       </div>
       {renderProductList}
     </div>

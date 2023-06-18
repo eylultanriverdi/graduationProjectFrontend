@@ -36,15 +36,14 @@ const RecipeList = (props) => {
             {recipeList &&
                 recipeList.map((recipe) => (
                     <div key={recipe.recipeID} style={{ color: '#9c27b0' }}>
-                        <h2 style={{ color: 'white' }}>
+                        <Card variant="outlined" style={{marginBottom: '20px', marginTop: '20px'}}>
+                            <Typography   color="secondary" style={{ marginLeft:'20px', fontSize:'xx-large' , marginTop: '10px'}}>
                             {recipe.recipeName}
-                        </h2>
-                        <Card variant="outlined">
-                            <CardContent>
-                                <Typography variant="body2" color="secondary">
-                                    {recipe.recipeDetail}
-                                </Typography>
-                            </CardContent>
+                            </Typography>
+                            <Typography variant="body2" color="secondary" style={{ marginLeft: '20px', marginRight: '20px', marginBottom: '20px', marginTop: '20px' }}>
+                              
+                                {recipe.recipeDetail}
+                            </Typography>
                         </Card>
                     </div>
                 ))}

@@ -38,11 +38,11 @@ const SelectedNutritionistList = (props) => {
     const openWhatsAppChat = (phoneNumber) => {
         const formattedPhoneNumber = phoneNumber.replace(/[^0-9]/g, '');
         const whatsappURL = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}`;
-      
+
         window.open(whatsappURL, '_blank', 'noopener noreferrer');
         console.log(whatsappURL);
-      };
-      
+    };
+
 
 
     return (
@@ -50,11 +50,11 @@ const SelectedNutritionistList = (props) => {
             {selectedNutritionistList && selectedNutritionistList.map((nutritionist) => (
                 nutritionist.nutritionist.map((nutritionistSelected) =>
                     <div style={{ color: '#9c27b0' }}>
-                        <h2 style={{ color: 'white' }}>
-                            {nutritionistSelected.name} {nutritionistSelected.surname}
-                        </h2>
-                        <Card variant="outlined">
+                        <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
                             <CardContent>
+                                <Typography color="secondary" style={{ fontSize: 'xx-large', marginTop: '10px' }}>
+                                {nutritionistSelected.name} {nutritionistSelected.surname}
+                                </Typography>
                                 <Typography variant="body2" color="secondary">
                                     Age: {nutritionistSelected.age}
                                 </Typography>

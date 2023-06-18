@@ -97,13 +97,13 @@ const RegisterPageNutritionist = (props) => {
         <Avatar style={avatarStyle}>
           <LockOutlinedIcon />
         </Avatar>
-        <h2 align="center">
+        <h2 align="center" style={{color: '#9c27b0'}}>
           Welcome ! Let's do the registration.
         </h2>
         <Grid container direction="row" spacing={2}>
           <Grid item xs={6}>
             <Grid align="center">
-              <Typography variant="h5">Dietitian Information</Typography>
+              <Typography variant="h5" style={{color: '#9c27b0'}}>Dietitian Information</Typography>
             </Grid>
             <TextField
               label="Name"
@@ -168,7 +168,7 @@ const RegisterPageNutritionist = (props) => {
           </Grid>
           <Grid item xs={6}>
             <Grid align="center">
-              <Typography variant="h5">Let's Get to Know You</Typography>
+              <Typography variant="h5" style={{color: '#9c27b0'}}>Let's Get to Know You</Typography>
             </Grid>
             <TextField
               label="Age"

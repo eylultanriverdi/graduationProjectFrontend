@@ -8,13 +8,13 @@ import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { createCalorieInfo } from '../redux/actions/productActions';
-import { Typography , Button} from '@mui/material';
+import { Typography, Button, Card } from '@mui/material';
 
 const ProductListing = (props) => {
   const { allProducts, createCalorieInfo } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Her sayfada kaç ürün gösterileceği
-  
+
   const fetchProducts = async () => {
     try {
       const resp = await axios.get(`http://localhost:3001/products?page=${currentPage}&limit=${productsPerPage}`);
@@ -175,11 +175,17 @@ const ProductListing = (props) => {
 
   return (
     <div>
-      <h1 style={{ color: 'white' }}>Product Listing</h1>
+      <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
+        <Typography color="secondary" style={{ marginLeft: '20px', fontSize: 'xx-large' }}>
+          Product Listing
+        </Typography>
+      </Card>
       {renderList}
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', fontSize:"30px" }}>
-        <Pagination count={10} color="secondary" page={currentPage} onChange={handlePageChange} />
-      </div>
+      <Card variant="outlined" style={{ marginBottom: '20px', marginTop: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', marginBottom:"10px",fontSize: "30px" }}>
+          <Pagination count={10} color="secondary" page={currentPage} onChange={handlePageChange} />
+        </div>
+      </Card>
     </div>
   );
 };

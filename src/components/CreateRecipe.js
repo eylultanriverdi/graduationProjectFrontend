@@ -54,10 +54,10 @@ const CreateRecipe = (props) => {
                         style={{ marginBottom: '10px', width: "-webkit-fill-available" }}
                     />
                 </Grid>
-                <h2 align="center">Let's create a recipe.</h2>
+                <h2 align="center" style={{ color: '#9c27b0' }}>Let's create a recipe.</h2>
                 <Grid container direction="row" spacing={2}>
                     <Grid item xs={12}>
-                        <Typography variant="h5">Recipe Information</Typography>
+                        <Typography variant="h5" style={{ color: '#9c27b0' }}>Recipe Information</Typography>
                         <TextField
                             label="Recipe Name"
                             placeholder="Enter recipe name"

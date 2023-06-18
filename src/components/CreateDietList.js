@@ -130,7 +130,7 @@ const CreateDietList = (props) => {
                 <Avatar style={{ backgroundColor: '#9c27b0' }}>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography variant="h5" align="center">
+                <Typography variant="h5" align="center" style={{marginBottom: '20px', color:'#9c27b0'}}>
                     Let's Create a Diet List
                 </Typography>
                 <Grid container direction="row" spacing={2}>
