@@ -4,9 +4,6 @@ import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Button, Paper, TextField, Typography, InputAdornment, IconButton } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom';
 import { createNutritionist } from '../../redux/actions/productActions';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
@@ -66,14 +63,11 @@ const RegisterPageNutritionist = (props) => {
       });
 
       if (resp.status === 200) {
-        // Registration successful
         createNutritionist(resp.data);
 
-        // Redirect to the login page after successful registration
         setRegistrationSuccess(true);
         setError('');
       } else {
-        // Registration failed
         setError('An error occurred during registration. Please try again.');
       }
     } catch (error) {
@@ -148,7 +142,7 @@ const RegisterPageNutritionist = (props) => {
             <TextField
               label="Password"
               placeholder="Enter your password"
-              type={showPassword ? 'text' : 'password'} // Show password if checkbox is checked
+              type={showPassword ? 'text' : 'password'} 
               style={textFieldStyle}
               fullWidth
               required

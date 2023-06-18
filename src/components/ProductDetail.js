@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setProducts } from '../redux/actions/productActions';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -10,7 +10,6 @@ import { Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button ,
 import { QRCodeCanvas } from 'qrcode.react';
 
 const ProductDetail = ({ allProducts, setProducts }) => {
-  const dispatch = useDispatch();
   const { productId } = useParams();
   const [product, setProduct] = useState({});
   const [showQRPopup, setShowQRPopup] = useState(false);

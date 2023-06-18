@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { setSelectedNutritionistList } from '../redux/actions/productActions';
 import { Card, CardContent, Typography, CircularProgress, Button } from '@mui/material';
@@ -40,7 +40,6 @@ const SelectedNutritionistList = (props) => {
         const whatsappURL = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}`;
 
         window.open(whatsappURL, '_blank', 'noopener noreferrer');
-        console.log(whatsappURL);
     };
 
 
@@ -87,7 +86,7 @@ const SelectedNutritionistList = (props) => {
                                     }}
                                 >
                                     <WhatsAppIcon
-                                        onClick={() => openWhatsAppChat('05556319465')}
+                                        onClick={() => openWhatsAppChat('05369777282')}
                                         style={{ fontSize: '40px', color: 'white', backgroundColor: '#26e726', borderRadius: '50%', padding: '5px' }}
                                     />
                                 </div>

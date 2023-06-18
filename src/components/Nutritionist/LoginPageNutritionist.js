@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { Avatar, Button, Paper, TextField, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
@@ -29,7 +27,6 @@ const LoginPageNutritionist = (props) => {
       });
 
       const result = resp.data;
-      console.log("result", result);
       localStorage.setItem('login', JSON.stringify({
         login: true,
         token: result.token
@@ -42,8 +39,6 @@ const LoginPageNutritionist = (props) => {
       setError('Your e-mail address is not registered in our system. Please complete your registration.');
     }
   };
-
-  console.log(nutritionistRegister,"nutritionistRegisternutritionistRegister")
 
   return (
     <Grid>

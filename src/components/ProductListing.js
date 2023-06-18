@@ -6,14 +6,13 @@ import Grid from '@mui/material/Grid';
 import { setProducts } from '../redux/actions/productActions';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
 import { createCalorieInfo } from '../redux/actions/productActions';
 import { Typography, Button, Card } from '@mui/material';
 
 const ProductListing = (props) => {
   const { allProducts, createCalorieInfo } = props;
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10); // Her sayfada kaç ürün gösterileceği
+  const [productsPerPage] = useState(10); 
 
   const fetchProducts = async () => {
     try {
@@ -44,7 +43,6 @@ const ProductListing = (props) => {
 
     try {
       const selectedProduct = allProducts.find((product) => product.productId === productId);
-      console.log(selectedProduct, "selectedProduct")
       if (selectedProduct) {
         const {
           productId,
@@ -96,11 +94,9 @@ const ProductListing = (props) => {
     fetchProducts();
   }, [currentPage]);
 
-  // Şu anki sayfadaki ürünleri al
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-  // Sayfa değişikliğini işle
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
   };
@@ -114,7 +110,6 @@ const ProductListing = (props) => {
     return (
       <Paper elevation={10} style={{ marginTop: '50px', marginBottom: '80px', padding: '20px', position: 'relative' }}>
         <Grid container spacing={2}>
-          {/* Ürün görseli */}
           <Grid item xs={12} sm={4}>
             <img
               src={productImage}

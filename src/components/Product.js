@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 
 
 const Product = () => {
-  const dispatch = useDispatch();
   const products = useSelector((state) => state.allProducts);
 
 

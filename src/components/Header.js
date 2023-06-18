@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Box, Button, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Button } from '@mui/material';
 import axios from 'axios';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { setCategoryList } from '../redux/actions/productActions';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -24,15 +20,10 @@ const Header = (props) => {
   const [expanded, setExpanded] = useState(false);
   const anchorRef = React.useRef(null);
 
-  const handleAccordionChange = () => {
-    setExpanded(!expanded);
-  };
-
   const fetchCategoryList = async () => {
     try {
       const resp = await axios.get('http://localhost:3001/dietCategories');
       if (resp && resp.status === 200) {
-        console.log('Response:', resp.data);
         setCategoryList(resp.data);
       }
     } catch (error) {
@@ -76,7 +67,7 @@ const Header = (props) => {
             <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" color="secondary" href="/nutritionistList">Nutritionist List</Button>
             <Button style={{ marginLeft: "10px",fontSize:"12px" }} variant="contained" color="secondary" href="/selectedNutritionistList">Selected Nutritionist List</Button>
             <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" color="secondary" href="/recipeList">Recipe List</Button>
-            <Button variant="contained" href="/createDietList" color="secondary">
+            <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" href="/createDietList" color="secondary">
             Create Diet List
             </Button>
             <Button style={{ marginLeft: "10px",fontSize:"12px"  }} variant="contained" color="secondary" href="/addRecipe">Create New Recipe</Button>

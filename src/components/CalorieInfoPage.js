@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createCalorieInfo, setCalorieInfoList, setProducts } from '../redux/actions/productActions';
 import axios from 'axios';
-import { CircularProgress, Grid, Paper, Typography, Button, TextField, Card } from '@mui/material';
+import { CircularProgress, Grid, Paper, Typography, Card } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,9 +11,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 const CalorieInfoPage = (props) => {
-  const { allProducts, calorieInfoList, createCalorieInfo } = props;
+  const { calorieInfoList } = props;
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10); // Her sayfada kaç ürün gösterileceği
+  const [productsPerPage] = useState(10); 
   const [totalCalories, setTotalCalories] = useState(0);
   const [totalProtein, setTotalProtein] = useState(0);
   const [totalCarbohydrate, setTotalCarbohydrate] = useState(0);
@@ -43,17 +43,15 @@ const CalorieInfoPage = (props) => {
 
   const calculateTotalCalories = () => {
     let total = 0;
-    const currentDate = new Date().toISOString().split('T')[0]; // Bugünün tarihini al
+    const currentDate = new Date().toISOString().split('T')[0]; 
 
     if (calorieInfoList && calorieInfoList.length > 0) {
-      // İlgili tarih bilgisine sahip ürünleri bul
       const productsWithSameDate = calorieInfoList.filter((calorieInfo) => {
         const entryDate = new Date(calorieInfo.createDate).toISOString().split('T')[0];
         return entryDate === currentDate;
       });
 
       if (productsWithSameDate.length > 0) {
-        // Toplam kalori değerini hesapla
         total = productsWithSameDate.reduce((sum, calorieInfo) => {
           return sum + parseInt(calorieInfo.totalCalorie);
         }, 0);
@@ -252,7 +250,7 @@ const CalorieInfoPage = (props) => {
                 thickness={2}
                 style={{ color: "#9c27b0" }}
               />
-              <Typography variant="h4" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+              <Typography variant="h4" style={{ color: "#9c27b0",position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                 {totalCalories}
               </Typography>
             </div>

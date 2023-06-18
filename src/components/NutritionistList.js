@@ -62,7 +62,7 @@ const NutritionistList = (props) => {
                             },
                         ],
                     },
-                    { timeout: 5000 } // İstek için 5 saniye zaman aşımı süresi
+                    { timeout: 5000 } 
                 );
 
                 createNutritionistSelected(resp.data);
@@ -89,7 +89,6 @@ const NutritionistList = (props) => {
         const whatsappURL = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}`;
       
         window.open(whatsappURL, '_blank', 'noopener noreferrer');
-        console.log(whatsappURL);
       };
       
     return (
@@ -134,7 +133,7 @@ const NutritionistList = (props) => {
                                         Add to My Dietitians List
                                     </Button>
                                     <WhatsAppIcon
-                                        onClick={() => openWhatsAppChat('05556319465')}
+                                        onClick={() => openWhatsAppChat('05369777282')}
                                         style={{ fontSize: '40px', color: 'white', backgroundColor: '#26e726', borderRadius: '50%', padding: '5px' }}
                                     />
                                 </div>

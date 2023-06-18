@@ -26,12 +26,10 @@ const HomePage = (props) => {
       const decodedToken = jwt.decode(storedLogin.token);
       const userID = decodedToken.userID
 
-      console.log(decodedToken.userID,"decode")
 
       const header = base64UrlEncode(JSON.stringify({ alg: 'HS256' }));
       const payload = base64UrlEncode(JSON.stringify({userID}));
 
-      console.log(payload,"payload")
 
       const crypto = require('crypto');
       const signature = crypto
@@ -41,8 +39,6 @@ const HomePage = (props) => {
 
       const token = `${header}.${payload}.${signature}`;
 
-      console.log(token, 'token');
-
       const resp = await axios.get('http://localhost:3001/profile', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -50,7 +46,6 @@ const HomePage = (props) => {
       });
 
       setUserInfo(resp.data);
-      console.log(resp.data, 'resp.data');
     } catch (error) {
       console.log('Error:', error);
     }
@@ -60,7 +55,6 @@ const HomePage = (props) => {
     fetchUserInfo();
   }, []);
 
-  console.log(userRegister,"userRegisteruserRegisteruserRegister")
 
   return (
     <div>

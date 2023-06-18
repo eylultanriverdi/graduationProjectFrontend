@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { setNutritionistInfo } from '../../redux/actions/productActions';
-import { Card, CardContent, Typography, Button, CardActions, Box } from '@mui/material';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 
 const base64UrlEncode = (value) => {
     const base64 = Buffer.from(value).toString('base64');
@@ -44,7 +44,6 @@ const HomePageNutritionist = (props) => {
             });
 
             setNutritionistInfo(resp.data);
-            console.log(resp.data, 'resp.data');
         } catch (error) {
             console.log('Error:', error);
         }

@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { Avatar, Button, Paper, TextField, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import { Link, useNavigate } from 'react-router-dom';
 import { createSignIn, setUserInfo } from '../../redux/actions/productActions';
 import axios from 'axios';
@@ -30,8 +28,8 @@ const LoginPage = (props) => {
   
       const result = resp.data;
   
-      createSignIn(result); // Dönen veriyi setUserInfo fonksiyonuyla Redux durumuna aktar
-      navigate('/homePage', { state: { userRegister } }); // userRegister değerini navigate işlevine ekleyin
+      createSignIn(result);
+      navigate('/homePage', { state: { userRegister } }); 
     } catch (error) {
       console.log('Error:', error);
       setError(
@@ -40,7 +38,6 @@ const LoginPage = (props) => {
     }
   };
 
-  console.log(userRegister, "userRegister")
 
   return (
     <Grid>

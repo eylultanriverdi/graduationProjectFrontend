@@ -5,10 +5,7 @@ import ProductListing from './components/ProductListing';
 import Product from './components/Product';
 import ProductDetail from './components/ProductDetail';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import { Typography } from '@mui/material';
 import CalorieInfoPage from './components/CalorieInfoPage';
-import NavigationBar from './components/NavigationBar';
 import CategoryList from './components/CategoryList';
 import RegisterPageNutritionist from './components/Nutritionist/RegisterPageNutritionist';
 import LoginPageNutritionist from './components/Nutritionist/LoginPageNutritionist';
@@ -26,8 +23,6 @@ import RecipeList from './components/RecipeList';
 import CreateDietList from './components/CreateDietList';
 
 function App() {
-  const isLoginPage = window.location.pathname === '/loginPage'; // Aktif sayfanın "/loginPage" olup olmadığını kontrol eder
-  const isRegisterPage = window.location.pathname === '/registerPageUser';
   return (
     <BrowserRouter>
       <Header />

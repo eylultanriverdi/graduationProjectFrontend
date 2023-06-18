@@ -147,7 +147,7 @@ export const nutritionistSignReducer = (state = initialState.nutritionistSignIn,
 export const userInfoReducer = (state = initialState.userInfoToken, action) => {
     switch (action.type) {
         case ActionTypes.USER_INFO:
-            return action.payload; // Sadece payload'ı döndür
+            return action.payload; 
         default:
             return state;
     }

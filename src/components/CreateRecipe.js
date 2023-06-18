@@ -40,10 +40,6 @@ const CreateRecipe = (props) => {
         }
     };
 
-    useEffect(() => {
-        fetchCreateRecipe();
-    }, []);
-
     return (
         <Grid container justifyContent="center" style={{width: '100%', align: "center"}}>
             <Paper elevation={10} style={paperStyle}>

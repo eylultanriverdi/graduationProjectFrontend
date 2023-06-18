@@ -3,6 +3,13 @@ import { connect, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setCategoryList } from '../redux/actions/productActions';
 import { Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, CircularProgress } from '@mui/material';
+import Healthyeating from '../assets/Healthyeating.webp';
+import GlutenFree from '../assets/Gluten-Free.webp';
+import Pregnancy from '../assets/Pregnancy.jpg';
+import diabetes from '../assets/diabets.webp';
+import keto from '../assets/keto.jpg';
+import vegan from '../assets/vegan.jpg';
+import vegetarian from '../assets/vegetarian.webp';
 
 const CategoryList = (props) => {
   const { categoryList, setCategoryList } = props;
@@ -64,12 +71,49 @@ const CategoryList = (props) => {
     );
   }
 
+  let categoryImageSrc = '';
+
+  switch (categoryId) {
+    case '2b1f7be7':
+      categoryImageSrc = vegan;
+      break;
+    case '0513121d':
+      categoryImageSrc = vegetarian;
+      break;
+    case 'bbb67310':
+      categoryImageSrc = GlutenFree;
+      break;
+    case '8b21ce15':
+      categoryImageSrc = Healthyeating;
+      break;
+    case '653625de':
+      categoryImageSrc = diabetes;
+      break;
+    case '92b53533':
+      categoryImageSrc = keto;
+      break;
+    case '076335dc':
+      categoryImageSrc = Pregnancy;
+      break;
+    default:
+      categoryImageSrc = null; 
+      break;
+  }
+
+  if (categoryImageSrc === null) {
+    return (
+      <div>
+        <Typography variant="h6" component="p">No image available for this category.</Typography>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Paper elevation={10} style={{ marginTop: "50px", marginBottom: "80px", padding: '20px' }}>
         <Typography variant="h4" component="h2" color="secondary" style={{ marginBottom: '20px', fontWeight: 'bold' }}>{category.categoryName}</Typography>
         {category.categoryImage && (
-          <img  src={`${category.categoryImage}?width=500&quality=50`} alt="Category" onLoad={handleImageLoad} style={{ width: '100%', display: isImageLoaded ? 'block' : 'none' }} />
+          <img  src={categoryImageSrc} alt="Category" onLoad={handleImageLoad} style={{ width: '100%', display: isImageLoaded ? 'block' : 'none' }} />
         )}
         <Typography variant="h6" component="p" style={{ marginTop: '20px', marginBottom: '20px' ,color: 'secondary'}}>List Owner: {category.dietitianName}</Typography>
         <Typography variant="h6" component="p" style={{ marginTop: '20px', marginBottom: '20px' }}>{category.description}</Typography>

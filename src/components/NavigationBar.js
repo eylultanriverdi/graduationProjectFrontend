@@ -31,7 +31,6 @@ const NavigationBar = (props) => {
     try {
       const resp = await axios.get('http://localhost:3001/dietCategories');
       if (resp && resp.status === 200) {
-        console.log('Response:', resp.data);
         setCategoryList(resp.data);
       }
     } catch (error) {
@@ -43,7 +42,6 @@ const NavigationBar = (props) => {
     fetchCategoryList();
   }, []);
 
-console.log(categoryList,"categoryList")
 
   return (
     <StyledDrawer variant="permanent" anchor="left">
